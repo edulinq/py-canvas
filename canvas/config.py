@@ -10,7 +10,7 @@ import platformdirs
 import canvas.log
 
 DEFAULT_CONFIG_FILENAME = 'config.json'
-DEFAULT_USER_CONFIG_PATH = platformdirs.user_config_dir('py-canvas.json')
+DEFAULT_USER_CONFIG_PATH = platformdirs.user_config_dir('edq-canvas.json')
 
 CONFIG_PATHS_KEY = 'config_paths'
 

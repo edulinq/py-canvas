@@ -6,7 +6,7 @@ requires = [
 ]
 
 [project]
-name = "py-canvas"
+name = "edq-canvas"
 version = "0.0.1"
 description = "A suite of tools and Python interface for Instructure's Canvas LMS."
 readme = "README.md"

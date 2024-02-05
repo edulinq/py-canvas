@@ -6,6 +6,10 @@
 *.pyc
 __pycache__/
 
+/bin/
+/dist/
+/build/
+
 /test.*
 
 /.secrets

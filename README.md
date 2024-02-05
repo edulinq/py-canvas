@@ -13,7 +13,7 @@ Documentation Table of Contents:
 
 The project (tools and API) can be installed from PyPi with:
 ```
-pip install py-canvas
+pip install edq-canvas
 ```
 
 Standard Python requirements are listed in `pyproject.toml`.
@@ -43,7 +43,7 @@ There are several other places that config options can be specified,
 with each later location overriding any earlier options.
 Here are the places options can be specified in the order that they are checked:
  1. `./config.json` -- If a `config.json` exists in the current directory, it is loaded.
- 2. `<platform-specific user config location>/py-canvas.json` -- A directory which is considered the "proper" place to store user-related config for the platform you are using (according to [platformdirs](https://github.com/platformdirs/platformdirs)). Use `--help` to see the exact place in your specific case. This is a great place to store login credentials.
+ 2. `<platform-specific user config location>/edq-canvas.json` -- A directory which is considered the "proper" place to store user-related config for the platform you are using (according to [platformdirs](https://github.com/platformdirs/platformdirs)). Use `--help` to see the exact place in your specific case. This is a great place to store login credentials.
  3. Files specified by `--config` -- These files are loaded in the order they appear on the command-line.
  4. Bare Options -- Options specified directly like `--course` or `--token`. These will override all previous options.
 
