@@ -1,6 +1,6 @@
 import logging
 
-DEFAULT_PAGE_SIZE = 75
+DEFAULT_PAGE_SIZE = 95
 HEADER_LINK = 'Link'
 
 # Standard enrollment types order by priority.

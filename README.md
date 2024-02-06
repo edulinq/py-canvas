@@ -8,6 +8,8 @@ Documentation Table of Contents:
  - [Installation](#installation)
  - [CLI Configuration](#cli-configuration)
  - [CLI Tools](#cli-tools)
+    - [List Course Users](#list-course-users)
+    - [Fetch Gradebook](#fetch-gradebook)
 
 ## Installation
 
@@ -77,4 +79,24 @@ python3 -m canvas.cli.user.list
 To list each user as a tab-separated row, use the `-t` / `--table` option:
 ```
 python3 -m canvas.cli.user.list --table
+```
+
+### Fetch Gradebook
+
+To fetch the full gradebook for a course, use the `canvas.cli.gradebook.fetch` tool.
+For example:
+```
+python3 -m canvas.cli.gradebook.fetch
+```
+
+A gradebook will be written to stdout as a tab-separated file.
+To output the gradebook to a file, you can redirect stdout to a file.
+Expect this command to take a few minutes for larger classes.
+
+You can prune assignments that have no submissions with the `--skip-empty-assignments` flag,
+and prune users with no submissions using the `--skip-empty-users` flag.
+
+For example, you can write a gradebook with pruned assignments and users to `grades.txt` using the following command:
+```
+python3 -m canvas.cli.gradebook.fetch --skip-empty-assignments --skip-empty-users > grades.txt
 ```
