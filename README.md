@@ -1,4 +1,4 @@
-# Py Canvas
+# Canvas Tools
 
 A suite of tools and Python interface for Instructure's Canvas LMS.
 
