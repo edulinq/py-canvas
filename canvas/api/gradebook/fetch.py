@@ -3,7 +3,7 @@ import requests
 
 import canvas.api.common
 
-BASE_ENDPOINT = "/api/v1/courses/%%s/students/submissions?per_page=%d&student_ids[]=all&include[]=user&include[]=assignment" % (canvas.api.common.DEFAULT_PAGE_SIZE)
+BASE_ENDPOINT = "/api/v1/courses/%%s/students/submissions?per_page=%d&include[]=user&include[]=assignment" % (canvas.api.common.DEFAULT_PAGE_SIZE)
 
 # Get the current grades for all users/assignments.
 # A count of all submissions will be returned for each assignment.
@@ -12,7 +12,7 @@ BASE_ENDPOINT = "/api/v1/courses/%%s/students/submissions?per_page=%d&student_id
 #   {assignment_id: {id: <id>, name: <name>, group_id: <id>, count: <int>, group_position: <int>}, ...},
 #   {user_id: {assignment_id: score, ...}, ...},
 # )
-def request(server = None, token = None, course = None, **kwargs):
+def request(server = None, token = None, course = None, users = [], **kwargs):
     server = canvas.api.common.validate_param(server, 'server')
     token = canvas.api.common.validate_param(token, 'token')
     course = canvas.api.common.validate_param(course, 'course', param_type = int)
@@ -21,6 +21,12 @@ def request(server = None, token = None, course = None, **kwargs):
 
     url = server + BASE_ENDPOINT % (course)
     headers = canvas.api.common.standard_headers(token)
+
+    if (len(users) == 0):
+        url += "&student_ids[]=all"
+    else:
+        for user in users:
+            url += "&student_ids[]=%s" % (user)
 
     assignments = {}
     grades = {}

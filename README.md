@@ -94,7 +94,13 @@ A gradebook will be written to stdout as a tab-separated file.
 To output the gradebook to a file, you can redirect stdout to a file.
 Expect this command to take a few minutes for larger classes.
 
-You can prune assignments that have no submissions with the `--skip-empty-assignments` flag,
+You can limit to gradebook to only specific students by specifying their IDs on the command line.
+Any number of students can be specified.
+```
+python3 -m canvas.cli.gradebook.fetch 12345 67890
+```
+
+To prune assignments that have no submissions with the `--skip-empty-assignments` flag,
 and prune users with no submissions using the `--skip-empty-users` flag.
 
 For example, you can write a gradebook with pruned assignments and users to `grades.txt` using the following command:

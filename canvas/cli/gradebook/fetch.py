@@ -8,8 +8,8 @@ DEFAULT_SKIP_EMPTY_ASSIGNMENTS = False
 DEFAULT_SKIP_EMPTY_USERS = False
 
 def run_cli(skip_empty_assignments = DEFAULT_SKIP_EMPTY_ASSIGNMENTS, skip_empty_users = DEFAULT_SKIP_EMPTY_USERS,
-        skip_headers = DEFAULT_SKIP_HEADERS, **kwargs):
-    assignments, user_grades = canvas.api.gradebook.fetch.request(**kwargs)
+        skip_headers = DEFAULT_SKIP_HEADERS, students = [], **kwargs):
+    assignments, user_grades = canvas.api.gradebook.fetch.request(users = students, **kwargs)
 
     if (len(assignments) == 0):
         print("No assignments found.", file = sys.stderr)
@@ -72,6 +72,10 @@ def _modify_parser(parser):
     parser.add_argument('--skip-headers', dest = 'skip_headers',
         action = 'store_true', default = DEFAULT_SKIP_HEADERS,
         help = 'Skip headers (default: %(default)s).')
+
+    parser.add_argument('students',
+        nargs = '*',
+        help = 'If specified, only fetch the gradebook for the specified students (identified by email).')
 
     return parser
 
