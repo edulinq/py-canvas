@@ -10,6 +10,7 @@ Documentation Table of Contents:
  - [CLI Tools](#cli-tools)
     - [List Course Users](#list-course-users)
     - [Fetch Gradebook](#fetch-gradebook)
+    - [Fetch Assignment Scores](#fetch-assignment-scores)
 
 ## Installation
 
@@ -100,3 +101,13 @@ For example, you can write a gradebook with pruned assignments and users to `gra
 ```
 python3 -m canvas.cli.gradebook.fetch --skip-empty-assignments --skip-empty-users > grades.txt
 ```
+
+### Fetch Assignment Scores
+
+To fetch the scores for a specific assignment, use the `canvas.cli.assignment.fetch-scores` tool.
+For example:
+```
+python3 -m canvas.cli.assignment.fetch-scores --assignment 123456
+```
+
+The student's email and score will be written to stdout as a tab-separated row.
