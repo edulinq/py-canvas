@@ -17,7 +17,7 @@ def request(server = None, token = None, course = None, users = [], **kwargs):
     token = canvas.api.common.validate_param(token, 'token')
     course = canvas.api.common.validate_param(course, 'course', param_type = int)
 
-    logging.debug("Fetching gradebook for course '%s' from '%s'." % (str(course), server))
+    logging.info("Fetching gradebook for course '%s' from '%s'." % (str(course), server))
 
     url = server + BASE_ENDPOINT % (course)
     headers = canvas.api.common.standard_headers(token)
@@ -32,7 +32,7 @@ def request(server = None, token = None, course = None, users = [], **kwargs):
     grades = {}
 
     while (url is not None):
-        logging.debug("Making request: '%s'." % (url))
+        logging.info("Making request: '%s'." % (url))
         response = requests.get(url, headers = headers)
         response.raise_for_status()
 

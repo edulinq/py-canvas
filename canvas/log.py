@@ -1,6 +1,6 @@
 import logging
 
-DEFAULT_LOGGING_LEVEL = logging.getLevelName(logging.INFO)
+DEFAULT_LOGGING_LEVEL = logging.getLevelName(logging.WARNING)
 DEFAULT_LOGGING_FORMAT = '%(asctime)s [%(levelname)-8s] - %(filename)s:%(lineno)s -- %(message)s'
 
 LEVELS = [

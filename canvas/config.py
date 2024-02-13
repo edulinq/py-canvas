@@ -118,7 +118,7 @@ def get_argument_parser(description = '', course = True, assignment = False, **k
             + " and finally any variables specified directly on the command line (like --user).")
 
     parser.add_argument('--log-level', dest = 'log_level',
-        action = 'store', type = str, default = logging.getLevelName(logging.INFO),
+        action = 'store', type = str, default = canvas.log.DEFAULT_LOGGING_LEVEL,
         choices = canvas.log.LEVELS,
         help = 'The logging level (default: %(default)s).')
 

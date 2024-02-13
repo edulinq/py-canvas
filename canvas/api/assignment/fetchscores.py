@@ -11,7 +11,7 @@ def request(server = None, token = None, course = None, assignment = None, **kwa
     course = canvas.api.common.validate_param(course, 'course', param_type = int)
     assignment = canvas.api.common.validate_param(assignment, 'assignment', param_type = int)
 
-    logging.debug("Fetching scores for assignement ('%s' (course '%s')) from '%s'." % (str(assignment), str(course), server))
+    logging.info("Fetching scores for assignement ('%s' (course '%s')) from '%s'." % (str(assignment), str(course), server))
 
     url = server + BASE_ENDPOINT % (course, assignment)
     headers = canvas.api.common.standard_headers(token)
@@ -19,7 +19,7 @@ def request(server = None, token = None, course = None, assignment = None, **kwa
     submissions = []
 
     while (url is not None):
-        logging.debug("Making request: '%s'." % (url))
+        logging.info("Making request: '%s'." % (url))
         response = requests.get(url, headers = headers)
         response.raise_for_status()
 
