@@ -3,9 +3,10 @@ import requests
 
 import canvas.api.common
 
-BASE_ENDPOINT = "/api/v1/courses/%%s/assignments/%%s/submissions?include[]=user&include[]=assignment&per_page=%d" % (canvas.api.common.DEFAULT_PAGE_SIZE)
+BASE_ENDPOINT = "/api/v1/courses/{course}/assignments/{assignment}/submissions?per_page={page_size}&include[]=user&include[]=assignment"
 
-def request(server = None, token = None, course = None, assignment = None, **kwargs):
+def request(server = None, token = None, course = None, assignment = None,
+        page_size = canvas.api.common.DEFAULT_PAGE_SIZE, **kwargs):
     server = canvas.api.common.validate_param(server, 'server')
     token = canvas.api.common.validate_param(token, 'token')
     course = canvas.api.common.validate_param(course, 'course', param_type = int)
@@ -13,18 +14,13 @@ def request(server = None, token = None, course = None, assignment = None, **kwa
 
     logging.info("Fetching scores for assignement ('%s' (course '%s')) from '%s'." % (str(assignment), str(course), server))
 
-    url = server + BASE_ENDPOINT % (course, assignment)
+    url = server + BASE_ENDPOINT.format(course = course, assignment = assignment, page_size = page_size)
     headers = canvas.api.common.standard_headers(token)
 
     submissions = []
 
     while (url is not None):
-        logging.info("Making request: '%s'." % (url))
-        response = requests.get(url, headers = headers)
-        response.raise_for_status()
-
-        url = canvas.api.common.fetch_next_canvas_link(response.headers)
-        items = response.json()
+        _, url, items = canvas.api.common.make_get_request(url, headers)
 
         for item in items:
             if (('user' not in item) or ('assignment' not in item)):
