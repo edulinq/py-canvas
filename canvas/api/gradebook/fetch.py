@@ -1,9 +1,8 @@
 import logging
-import requests
 
 import canvas.api.common
 
-BASE_ENDPOINT = "/api/v1/courses/%%s/students/submissions?per_page=%d&include[]=user&include[]=assignment" % (canvas.api.common.DEFAULT_PAGE_SIZE)
+BASE_ENDPOINT = "/api/v1/courses/{course}/students/submissions?per_page={page_size}&include[]=user&include[]=assignment"
 
 # Get the current grades for all users/assignments.
 # A count of all submissions will be returned for each assignment.
@@ -12,14 +11,15 @@ BASE_ENDPOINT = "/api/v1/courses/%%s/students/submissions?per_page=%d&include[]=
 #   {assignment_id: {id: <id>, name: <name>, group_id: <id>, count: <int>, group_position: <int>}, ...},
 #   {user_id: {assignment_id: score, ...}, ...},
 # )
-def request(server = None, token = None, course = None, users = [], **kwargs):
+def request(server = None, token = None, course = None, users = [],
+        page_size = canvas.api.common.DEFAULT_PAGE_SIZE, **kwargs):
     server = canvas.api.common.validate_param(server, 'server')
     token = canvas.api.common.validate_param(token, 'token')
     course = canvas.api.common.validate_param(course, 'course', param_type = int)
 
     logging.info("Fetching gradebook for course '%s' from '%s'." % (str(course), server))
 
-    url = server + BASE_ENDPOINT % (course)
+    url = server + BASE_ENDPOINT.format(course = course, page_size = page_size)
     headers = canvas.api.common.standard_headers(token)
 
     if (len(users) == 0):
@@ -32,12 +32,7 @@ def request(server = None, token = None, course = None, users = [], **kwargs):
     grades = {}
 
     while (url is not None):
-        logging.info("Making request: '%s'." % (url))
-        response = requests.get(url, headers = headers)
-        response.raise_for_status()
-
-        url = canvas.api.common.fetch_next_canvas_link(response.headers)
-        items = response.json()
+        _, url, items = canvas.api.common.make_get_request(url, headers)
 
         for item in items:
             if (('user' not in item) or ('assignment' not in item)):

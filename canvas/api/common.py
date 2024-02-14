@@ -1,4 +1,7 @@
+import json
 import logging
+
+import requests
 
 DEFAULT_PAGE_SIZE = 95
 HEADER_LINK = 'Link'
@@ -16,6 +19,31 @@ ENROLLMENT_TYPES = [
 ]
 
 ENROLLMENT_TYPE_UNKNOWN = '<unknown>'
+
+# Return: (response, next_url, body)
+def make_get_request(url, headers, raise_for_status = True,
+        fetch_next_url = True, json_body = True):
+    logging.info("Making request: '%s'." % (url))
+    response = requests.get(url, headers = headers)
+    response.raise_for_status()
+
+    next_url = None
+    if (fetch_next_url):
+        next_url = fetch_next_canvas_link(response.headers)
+
+    body = None
+    log_body = None
+    if (json_body):
+        body = response.json()
+        if (logging.getLogger().level <= logging.DEBUG):
+            log_body = json.dumps(body, indent = 4)
+    else:
+        body = response.text
+        log_body = body
+
+    logging.debug("Response:\n%s" % log_body)
+
+    return response, next_url, body
 
 def validate_param(value, name, param_type = str, optional = False):
     if (value is None):

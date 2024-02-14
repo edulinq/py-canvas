@@ -25,8 +25,8 @@ class APITest(unittest.TestCase):
     """
     Test API calls by mocking a server.
 
-    Note that the same test output is used by the server to respond to a request
-    and the test to verify the output (making the equality assertion seem redundant).
+    Note that the same test response is used by the server to respond to a request
+    and the test to verify the response (making the equality assertion seem redundant).
     But, the data was taken and modified from Canvas requests.
     """
 
@@ -67,7 +67,9 @@ def get_api_test_info(path):
     suffix = ''.join(parts[1:])
 
     import_module_name = '.'.join(['canvas', 'api', prefix, suffix])
-    expected = data['output']
+
+    response = data['response']
+    expected = data.get('expected', response)
 
     arguments = BASE_ARGUMENTS.copy()
     for key, value in data.get('arguments', {}).items():
@@ -76,22 +78,23 @@ def get_api_test_info(path):
     output_modifier = clean_output_noop
     if ('output-modifier' in data):
         modifier_name = data['output-modifier']
-
         if (modifier_name not in globals()):
-            raise ValueError("Could not find API output modifier function: '%s'." % (modifier_name))
+            raise ValueError("Could not find API '%s' function: '%s'." % ('output-modifier', modifier_name))
 
         output_modifier = globals()[modifier_name]
 
-    return import_module_name, arguments, expected, output_modifier
+    return import_module_name, arguments, response, expected, output_modifier
 
 def _get_api_test_method(path):
-    import_module_name, arguments, expected, output_modifier = get_api_test_info(path)
+    import_module_name, arguments, response, expected, output_modifier = get_api_test_info(path)
 
     def __method(self):
         api_module = importlib.import_module(import_module_name)
 
-        self._next_response_queue.put(expected)
+        self._next_response_queue.put(response)
         actual = api_module.request(**arguments)
+        if (isinstance(actual, tuple)):
+            actual = list(actual)
 
         actual = output_modifier(actual)
 
