@@ -10,6 +10,7 @@ Documentation Table of Contents:
  - [CLI Tools](#cli-tools)
     - [List Course Users](#list-course-users)
     - [Fetch Gradebook](#fetch-gradebook)
+    - [List Assignments](#list-assignments)
     - [Fetch Assignment Scores](#fetch-assignment-scores)
 
 ## Installation
@@ -106,6 +107,19 @@ and prune users with no submissions using the `--skip-empty-users` flag.
 For example, you can write a gradebook with pruned assignments and users to `grades.txt` using the following command:
 ```
 python3 -m canvas.cli.gradebook.fetch --skip-empty-assignments --skip-empty-users > grades.txt
+```
+
+### List Assignments
+
+Course assignments can be listed using the `canvas.cli.assignment.list` tool.
+For example:
+```
+python3 -m canvas.cli.assignment.list
+```
+
+To list each assignment as a tab-separated row, use the `-t` / `--table` option:
+```
+python3 -m canvas.cli.assignment.list --table
 ```
 
 ### Fetch Assignment Scores
