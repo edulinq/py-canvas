@@ -4,10 +4,10 @@ import canvas.api.gradebook.fetch
 import canvas.config
 
 DEFAULT_SKIP_HEADERS = False
-DEFAULT_SKIP_EMPTY_ASSIGNMENTS = False
-DEFAULT_SKIP_EMPTY_USERS = False
+DEFAULT_INCLUDE_EMPTY_ASSIGNMENTS = False
+DEFAULT_INCLUDE_EMPTY_USERS = False
 
-def run_cli(skip_empty_assignments = DEFAULT_SKIP_EMPTY_ASSIGNMENTS, skip_empty_users = DEFAULT_SKIP_EMPTY_USERS,
+def run_cli(include_empty_assignments = DEFAULT_INCLUDE_EMPTY_ASSIGNMENTS, include_empty_users = DEFAULT_INCLUDE_EMPTY_USERS,
         skip_headers = DEFAULT_SKIP_HEADERS, students = [], **kwargs):
     assignments, user_grades = canvas.api.gradebook.fetch.request(users = students, **kwargs)
 
@@ -19,9 +19,9 @@ def run_cli(skip_empty_assignments = DEFAULT_SKIP_EMPTY_ASSIGNMENTS, skip_empty_
         print("No submissions found.", file = sys.stderr)
         return 0
 
-    sorted_assignments = list(sorted(assignments.values(), key = lambda assignment: (assignment['group_id'], assignment['group_position'], assignment['id'])))
+    sorted_assignments = list(sorted(assignments.values(), key = lambda assignment: (assignment['assignment_group_id'], assignment['position'], assignment['id'])))
 
-    if (skip_empty_assignments):
+    if (not include_empty_assignments):
         new_assignments = []
 
         for assignment in sorted_assignments:
@@ -47,7 +47,7 @@ def run_cli(skip_empty_assignments = DEFAULT_SKIP_EMPTY_ASSIGNMENTS, skip_empty_
 
             row.append(str(score))
 
-        if (skip_empty_users and (not has_score)):
+        if ((not include_empty_users) and (not has_score)):
             continue
 
         print("\t".join([email] + row))
@@ -61,12 +61,12 @@ def main():
 def _modify_parser(parser):
     parser.description = 'Fetch the gradebook for a course. This may take several minutes.'
 
-    parser.add_argument('--skip-empty-assignments', dest = 'skip_empty_assignments',
-        action = 'store_true', default = DEFAULT_SKIP_EMPTY_ASSIGNMENTS,
+    parser.add_argument('--include-empty-assignments', dest = 'include_empty_assignments',
+        action = 'store_true', default = DEFAULT_INCLUDE_EMPTY_ASSIGNMENTS,
         help = 'Skip assignments with no submissions (default: %(default)s).')
 
-    parser.add_argument('--skip-empty-users', dest = 'skip_empty_users',
-        action = 'store_true', default = DEFAULT_SKIP_EMPTY_USERS,
+    parser.add_argument('--include-empty-users', dest = 'include_empty_users',
+        action = 'store_true', default = DEFAULT_INCLUDE_EMPTY_USERS,
         help = 'Skip users with no submissions (default: %(default)s).')
 
     parser.add_argument('--skip-headers', dest = 'skip_headers',

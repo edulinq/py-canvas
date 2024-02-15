@@ -1,21 +1,26 @@
 import logging
 
+import canvas.api.assignment.list
 import canvas.api.common
+import canvas.api.user.list
 
-BASE_ENDPOINT = "/api/v1/courses/{course}/students/submissions?per_page={page_size}&include[]=user&include[]=assignment"
+BASE_ENDPOINT = "/api/v1/courses/{course}/students/submissions?per_page={page_size}"
 
 # Get the current grades for all users/assignments.
 # A count of all submissions will be returned for each assignment.
 # Users will have a None for unsubmitted assignments.
 # Return: (
-#   {assignment_id: {id: <id>, name: <name>, group_id: <id>, count: <int>, group_position: <int>}, ...},
-#   {user_id: {assignment_id: score, ...}, ...},
+#   {assignment_id: {id: <id>, name: <name>, assignment_group_id: <id>, count: <int>, position: <int>}, ...},
+#   {user_email: {assignment_id: score, ...}, ...},
 # )
 def request(server = None, token = None, course = None, users = [],
         page_size = canvas.api.common.DEFAULT_PAGE_SIZE, **kwargs):
     server = canvas.api.common.validate_param(server, 'server')
     token = canvas.api.common.validate_param(token, 'token')
     course = canvas.api.common.validate_param(course, 'course', param_type = int)
+
+    all_users = _fetch_users(server, token, course, page_size)
+    assignments = _fetch_assignments(server, token, course, page_size)
 
     logging.info("Fetching gradebook for course '%s' from '%s'." % (str(course), server))
 
@@ -28,50 +33,55 @@ def request(server = None, token = None, course = None, users = [],
         for user in users:
             url += "&student_ids[]=%s" % (user)
 
-    assignments = {}
     grades = {}
 
     while (url is not None):
         _, url, items = canvas.api.common.make_get_request(url, headers)
 
         for item in items:
-            if (('user' not in item) or ('assignment' not in item)):
-                continue
-
-            if ((item['user'].get('name', '') == 'Test Student') and (item['user'].get('sis_user_id', None) is None)):
-                continue
-
-            user_id = item['user'].get('login_id', None)
+            user_id = item.get('user_id', None)
             if (user_id is None):
                 continue
 
-            assignment_id = item['assignment'].get('id', None)
-            assignment_name = item['assignment'].get('name', None)
-            assignment_group_id = item['assignment'].get('assignment_group_id', None)
-            assignment_group_pos = item['assignment'].get('position', -1)
-
-            if ((assignment_id is None) or (assignment_name is None)):
+            if (user_id not in all_users):
                 continue
+
+            user_email = all_users[user_id]['email']
+
+            assignment_id = item.get('assignment_id', None)
+            if (assignment_id is None):
+                continue
+
+            if (assignment_id not in assignments):
+                continue
+
+            assignment_name = assignments[assignment_id]['name']
 
             score = item.get('score', None)
             if (score is not None):
                 score = float(score)
 
-            if (assignment_id not in assignments):
-                assignments[assignment_id] = {
-                    'id': assignment_id,
-                    'name': assignment_name,
-                    'group_id': assignment_group_id,
-                    'group_position': assignment_group_pos,
-                    'count': 0,
-                }
-
-            if (user_id not in grades):
-                grades[user_id] = {}
+            if (user_email not in grades):
+                grades[user_email] = {}
 
             if (score is not None):
                 assignments[assignment_id]['count'] += 1
 
-            grades[user_id][assignment_id] = score
+            grades[user_email][assignment_id] = score
 
     return assignments, grades
+
+def _fetch_users(server, token, course, page_size):
+    users = canvas.api.user.list.request(server = server, token = token, course = course,
+        page_size = page_size)
+
+    return {user['id']: user for user in users}
+
+def _fetch_assignments(server, token, course, page_size):
+    assignments = canvas.api.assignment.list.request(server = server, token = token, course = course,
+        page_size = page_size)
+
+    for assignment in assignments:
+        assignment['count'] = 0
+
+    return {assignment['id']: assignment for assignment in assignments}

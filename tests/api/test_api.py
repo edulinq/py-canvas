@@ -9,6 +9,8 @@ import tests.api.server
 
 THIS_DIR = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
 DATA_DIR = os.path.join(THIS_DIR, "data")
+TESTS_DIR = os.path.join(DATA_DIR, "tests")
+RESPONSES_DIR = os.path.join(DATA_DIR, "responses")
 
 SERVER_URL = "http://127.0.0.1:%s" % (tests.api.server.PORT)
 FORMAT_STR = "\n--- Expected ---\n%s\n--- Actual ---\n%s\n---\n"
@@ -18,16 +20,13 @@ BASE_ARGUMENTS = {
     'token': 'abc123',
     'course': 12345,
     'assignment': 67890,
+    'page_size': 95,
 }
 
 @unittest.skipUnless(sys.platform.startswith('linux'), 'linux only (multiprocessing)')
 class APITest(unittest.TestCase):
     """
     Test API calls by mocking a server.
-
-    Note that the same test response is used by the server to respond to a request
-    and the test to verify the response (making the equality assertion seem redundant).
-    But, the data was taken and modified from Canvas requests.
     """
 
     def __init__(self, *args, **kwargs):
@@ -35,7 +34,7 @@ class APITest(unittest.TestCase):
         self._server_process = None
 
     def setUp(self):
-        self._server_process, self._next_response_queue = tests.api.server.start()
+        self._server_process = tests.api.server.start(RESPONSES_DIR)
 
     def tearDown(self):
         tests.api.server.stop(self._server_process)
@@ -48,14 +47,14 @@ class APITest(unittest.TestCase):
         super().assertEqual(a, b, FORMAT_STR % (a_json, b_json))
 
 def _discover_api_tests():
-    for path in sorted(glob.glob(os.path.join(DATA_DIR, "**", "test_*.json"), recursive = True)):
+    for path in sorted(glob.glob(os.path.join(TESTS_DIR, "**", "*.json"), recursive = True)):
         try:
             _add_api_test(path)
         except Exception as ex:
             raise ValueError("Failed to parse test case '%s'." % (path)) from ex
 
 def _add_api_test(path):
-    test_name = os.path.splitext(os.path.basename(path))[0]
+    test_name = 'test_' + os.path.splitext(os.path.basename(path))[0]
     setattr(APITest, test_name, _get_api_test_method(path))
 
 def get_api_test_info(path):
@@ -68,8 +67,7 @@ def get_api_test_info(path):
 
     import_module_name = '.'.join(['canvas', 'api', prefix, suffix])
 
-    response = data['response']
-    expected = data.get('expected', response)
+    expected = data['expected']
 
     arguments = BASE_ARGUMENTS.copy()
     for key, value in data.get('arguments', {}).items():
@@ -83,22 +81,21 @@ def get_api_test_info(path):
 
         output_modifier = globals()[modifier_name]
 
-    return import_module_name, arguments, response, expected, output_modifier
+    return import_module_name, arguments, expected, output_modifier
 
 def _get_api_test_method(path):
-    import_module_name, arguments, response, expected, output_modifier = get_api_test_info(path)
+    import_module_name, arguments, expected, output_modifier = get_api_test_info(path)
 
     def __method(self):
         api_module = importlib.import_module(import_module_name)
 
-        self._next_response_queue.put(response)
         actual = api_module.request(**arguments)
         if (isinstance(actual, tuple)):
             actual = list(actual)
 
         actual = output_modifier(actual)
 
-        self.assertJSONEqual(actual, expected)
+        self.assertJSONEqual(expected, actual)
 
     return __method
 

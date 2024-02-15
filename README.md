@@ -101,12 +101,12 @@ Any number of students can be specified.
 python3 -m canvas.cli.gradebook.fetch 12345 67890
 ```
 
-To prune assignments that have no submissions with the `--skip-empty-assignments` flag,
-and prune users with no submissions using the `--skip-empty-users` flag.
+By default, assignments and users without submissions will be pruned.
+They can be included by using the respective `--include-empty-assignments` and `--include-empty-users` flags.
 
-For example, you can write a gradebook with pruned assignments and users to `grades.txt` using the following command:
+For example, you can write a gradebook with all assignments and users to `grades.txt` using the following command:
 ```
-python3 -m canvas.cli.gradebook.fetch --skip-empty-assignments --skip-empty-users > grades.txt
+python3 -m canvas.cli.gradebook.fetch --include-empty-assignments --include-empty-users > grades.txt
 ```
 
 ### List Assignments
