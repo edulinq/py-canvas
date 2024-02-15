@@ -1,6 +1,6 @@
 import sys
 
-import canvas.api.assignment.list
+import canvas.api.assignment.fetch
 import canvas.cli.assignment.common
 import canvas.cli.common
 import canvas.config
@@ -11,22 +11,22 @@ DEFAULT_SKIP_DESCRIPTION = False
 
 def run_cli(table = DEFAULT_TABLE, skip_headers = DEFAULT_SKIP_HEADERS,
         skip_description = DEFAULT_SKIP_DESCRIPTION, **kwargs):
-    assignments = canvas.api.assignment.list.request(**kwargs)
+    assignment = canvas.api.assignment.fetch.request(**kwargs)
 
     keys = canvas.cli.assignment.common.OUTPUT_KEYS.copy()
     if (skip_description):
         keys = keys[:-1]
 
-    return canvas.cli.common.cli_list(assignments, keys,
+    return canvas.cli.common.cli_list([assignment], keys,
             table = table, skip_headers = skip_headers,
-            collective_name = 'assignments', sort_key = 'name')
+            collective_name = 'assignment', sort_key = 'name')
 
 def main():
-    config = canvas.config.get_config(exit_on_error = True, modify_parser = _modify_parser, course = True)
+    config = canvas.config.get_config(exit_on_error = True, modify_parser = _modify_parser, course = True, assignment = True)
     return run_cli(**config)
 
 def _modify_parser(parser):
-    parser.description = 'List assignments in a course.'
+    parser.description = 'Fetch information for an assignment.'
 
     parser.add_argument('-t', '--table', dest = 'table',
         action = 'store_true', default = DEFAULT_TABLE,

@@ -11,6 +11,7 @@ Documentation Table of Contents:
     - [List Course Users](#list-course-users)
     - [Fetch Gradebook](#fetch-gradebook)
     - [List Assignments](#list-assignments)
+    - [Fetch a Single Assignment](#fetch-a-single-assignment)
     - [Fetch Assignment Scores](#fetch-assignment-scores)
 
 ## Installation
@@ -120,6 +121,14 @@ python3 -m canvas.cli.assignment.list
 To list each assignment as a tab-separated row, use the `-t` / `--table` option:
 ```
 python3 -m canvas.cli.assignment.list --table
+```
+
+### Fetch a Single Assignment
+
+Fetch information about a single assignment using the `canvas.cli.assignment.fetch` tool.
+For example:
+```
+python3 -m canvas.cli.assignment.fetch
 ```
 
 ### Fetch Assignment Scores
