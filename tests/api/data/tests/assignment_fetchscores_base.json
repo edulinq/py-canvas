@@ -1,0 +1,56 @@
+{
+    "endpoint": "assignment/fetchscores",
+    "arguments": {
+        "assignment": 67890
+    },
+    "expected": [
+        {
+            "id": "50000001",
+            "grade": "1",
+            "score": 1.0,
+            "submitted_at": "1970-01-01T01:01:01Z",
+            "graded_at": "1970-01-01T01:01:01Z",
+            "user": {
+                "id": "00001",
+                "email": "aalvarez@ucsc.edu",
+                "name": "Alice Alvarez",
+                "enrollment": "StudentEnrollment",
+                "sis_user_id": "1000001"
+            },
+            "assignment": {
+                "id": "67890",
+                "name": "Assignment 1",
+                "points_possible": 1.0,
+                "published": true,
+                "due_at": "1970-01-01T01:01:01Z",
+                "assignment_group_id": "200001",
+                "position": 2,
+                "description": ""
+            }
+        },
+        {
+            "id": "50000002",
+            "grade": "1",
+            "score": 0.5,
+            "submitted_at": "1970-01-01T01:01:01Z",
+            "graded_at": "1970-01-01T01:01:01Z",
+            "user": {
+                "id": "00002",
+                "email": "bburnquist@ucsc.edu",
+                "name": "Bob Burnquist",
+                "enrollment": "StudentEnrollment",
+                "sis_user_id": "1000002"
+            },
+            "assignment": {
+                "id": "67890",
+                "name": "Assignment 1",
+                "points_possible": 1.0,
+                "published": true,
+                "due_at": "1970-01-01T01:01:01Z",
+                "assignment_group_id": "200001",
+                "position": 2,
+                "description": ""
+            }
+        }
+    ]
+}

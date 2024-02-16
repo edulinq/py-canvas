@@ -13,15 +13,16 @@ def run_cli(skip_headers = DEFAULT_SKIP_HEADERS, **kwargs):
         return 0
 
     if (not skip_headers):
-        print("\t".join(['email', submissions[0]['assignment_header']]))
+        header = "%s (%s)" % (submissions[0]['assignment']['name'], str(submissions[0]['assignment']['id']))
+        print("\t".join(['email', header]))
 
-    submissions = list(sorted(submissions, key = lambda submission: submission.get('user_id')))
+    submissions = list(sorted(submissions, key = lambda submission: submission['user']['email']))
     for submission in submissions:
         score = submission.get('score', '')
         if (score is None):
             score = ''
 
-        print("\t".join(map(str, [submission['user_id'], score])))
+        print("\t".join(map(str, [submission['user']['email'], score])))
 
     return 0
 
