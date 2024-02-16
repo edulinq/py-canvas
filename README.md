@@ -9,6 +9,7 @@ Documentation Table of Contents:
  - [CLI Configuration](#cli-configuration)
  - [CLI Tools](#cli-tools)
     - [List Course Users](#list-course-users)
+    - [Fetch a Single User](#fetch-a-single-user)
     - [Fetch Gradebook](#fetch-gradebook)
     - [List Assignments](#list-assignments)
     - [Fetch a Single Assignment](#fetch-a-single-assignment)
@@ -84,7 +85,7 @@ To list each user as a tab-separated row, use the `-t` / `--table` option:
 python3 -m canvas.cli.user.list --table
 ```
 
-### List Course Users
+### Fetch a Single User
 
 To fetch information about a single course user, use the `canvas.cli.user.fetch` tool.
 For example:
