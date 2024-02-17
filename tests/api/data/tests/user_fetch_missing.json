@@ -1,0 +1,10 @@
+{
+    "endpoint": "user/fetch",
+    "arguments": {
+        "users": [
+            "ZZZ"
+        ]
+    },
+    "expected": [
+    ]
+}

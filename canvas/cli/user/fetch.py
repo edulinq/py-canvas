@@ -31,8 +31,8 @@ def _modify_parser(parser):
         help = 'Skip headers when outputting as a table (default: %(default)s).')
 
     parser.add_argument('user',
-        action = 'store', type = int,
-        help = 'The id of the user to fetch information about.')
+        action = 'store', type = str,
+        help = 'The query for the user to fetch information about.')
 
     return parser
 

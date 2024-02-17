@@ -1,3 +1,5 @@
+import sys
+
 # keys: [(items key, title, pretty title), ...]
 def cli_list(items, keys, table = False, skip_headers = False,
         collective_name = 'items', sort_key = 'id'):

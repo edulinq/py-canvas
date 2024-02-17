@@ -2,6 +2,7 @@ import logging
 
 import canvas.api.common
 import canvas.api.user.common
+import canvas.api.user.list
 
 BASE_ENDPOINT = "/api/v1/courses/{course}/users?include[]=enrollments&per_page={page_size}"
 
@@ -27,6 +28,9 @@ def request(server = None, token = None, course = None,
     if (len(users) == 0):
         return []
 
+    if (canvas.api.user.common.requires_resolution(users)):
+        return _fetch_from_list(server, token, course, users, page_size, keys)
+
     url = server + BASE_ENDPOINT.format(course = course, page_size = page_size)
     headers = canvas.api.common.standard_headers(token)
 
@@ -34,3 +38,14 @@ def request(server = None, token = None, course = None,
         url += "&user_ids[]=%s" % (str(user))
 
     return canvas.api.user.common._list_users(url, headers, keys)
+
+def _fetch_from_list(server, token, course, user_queries, page_size, keys):
+    course_users = canvas.api.user.list.request(server = server, token = token,
+            course = course, page_size = page_size, keys = None)
+
+    users = canvas.api.user.common.resolve_users(user_queries, course_users)
+
+    if (keys is None):
+        return users
+
+    return [{key: user[key] for key in keys} for user in users]
