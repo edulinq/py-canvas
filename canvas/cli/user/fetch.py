@@ -5,13 +5,21 @@ import canvas.cli.common
 import canvas.cli.user.common
 import canvas.config
 
+DEFAULT_INCLUDE_ROLE = False
 DEFAULT_TABLE = False
 DEFAULT_SKIP_HEADERS = False
 
-def run_cli(user = None, table = DEFAULT_TABLE, skip_headers = DEFAULT_SKIP_HEADERS, **kwargs):
-    user = canvas.api.user.fetch.request(users = [user], **kwargs)
+def run_cli(user = None, include_role = DEFAULT_INCLUDE_ROLE,
+        table = DEFAULT_TABLE, skip_headers = DEFAULT_SKIP_HEADERS,
+        **kwargs):
+    user = canvas.api.user.fetch.request(users = [user], include_role = include_role,
+            **kwargs)
 
-    return canvas.cli.common.cli_list(user, canvas.cli.user.common.OUTPUT_KEYS,
+    keys = canvas.cli.user.common.OUTPUT_KEYS.copy()
+    if (include_role):
+        keys.append(canvas.cli.user.common.ENROLLMENT_KEY)
+
+    return canvas.cli.common.cli_list(user, keys,
             table = table, skip_headers = skip_headers,
             collective_name = 'user', sort_key = 'email')
 
@@ -21,6 +29,10 @@ def main():
 
 def _modify_parser(parser):
     parser.description = 'Fetch information for a user.'
+
+    parser.add_argument('--include-role', dest = 'include_role',
+        action = 'store_true', default = DEFAULT_INCLUDE_ROLE,
+        help = 'Include user\'s role in the course (default: %(default)s).')
 
     parser.add_argument('-t', '--table', dest = 'table',
         action = 'store_true', default = DEFAULT_TABLE,

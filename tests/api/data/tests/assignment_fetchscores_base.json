@@ -14,7 +14,7 @@
                 "id": "00001",
                 "email": "aalvarez@ucsc.edu",
                 "name": "Alice Alvarez",
-                "enrollment": "StudentEnrollment",
+                "enrollment": "<unknown>",
                 "sis_user_id": "1000001"
             },
             "assignment": {
@@ -38,7 +38,7 @@
                 "id": "00002",
                 "email": "bburnquist@ucsc.edu",
                 "name": "Bob Burnquist",
-                "enrollment": "StudentEnrollment",
+                "enrollment": "<unknown>",
                 "sis_user_id": "1000002"
             },
             "assignment": {

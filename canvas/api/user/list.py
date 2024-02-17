@@ -3,17 +3,10 @@ import logging
 import canvas.api.common
 import canvas.api.user.common
 
-BASE_ENDPOINT = "/api/v1/courses/{course}/users?include[]=enrollments&per_page={page_size}"
-
-DEFAULT_KEYS = [
-    'id',
-    'email',
-    'name',
-    'enrollment',
-    'sis_user_id',
-]
+BASE_ENDPOINT = "/api/v1/courses/{course}/users?per_page={page_size}"
 
 def request(server = None, token = None, course = None,
+        include_role = False,
         page_size = canvas.api.common.DEFAULT_PAGE_SIZE,
         keys = canvas.api.user.common.DEFAULT_KEYS, **kwargs):
     server = canvas.api.common.validate_param(server, 'server')
@@ -24,5 +17,8 @@ def request(server = None, token = None, course = None,
 
     url = server + BASE_ENDPOINT.format(course = course, page_size = page_size)
     headers = canvas.api.common.standard_headers(token)
+
+    if (include_role):
+        url += '&include[]=enrollments'
 
     return canvas.api.user.common._list_users(url, headers, keys)

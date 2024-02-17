@@ -2,15 +2,16 @@
     "endpoint": "user/fetch",
     "arguments": {
         "users": [
-            "Alice Alvarez"
-        ]
+            "00001"
+        ],
+        "include_role": true
     },
     "expected": [
         {
             "id": "00001",
             "email": "aalvarez@ucsc.edu",
             "name": "Alice Alvarez",
-            "enrollment": "<unknown>",
+            "enrollment": "StudentEnrollment",
             "sis_user_id": "1000001"
         }
     ]

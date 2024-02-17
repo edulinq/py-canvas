@@ -1,10 +1,6 @@
 {
-    "endpoint": "user/list",
-    "arguments": {
-        "keys": null,
-        "include_role": true
-    },
-    "expected": [
+    "url": "/api/v1/courses/12345/users?include[]=enrollments",
+    "body": [
         {
             "id": "00001",
             "name": "Alice Alvarez",
@@ -15,7 +11,6 @@
             "integration_id": null,
             "root_account": "canvas.ucsc.edu",
             "login_id": "aalvarez@ucsc.edu",
-            "enrollment": "StudentEnrollment",
             "enrollments": [
                 {
                     "id": "3000001",
@@ -107,7 +102,6 @@
             "integration_id": null,
             "root_account": "canvas.ucsc.edu",
             "login_id": "bburnquist@ucsc.edu",
-            "enrollment": "StudentEnrollment",
             "enrollments": [
                 {
                     "id": "3000003",
