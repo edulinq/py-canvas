@@ -7,6 +7,8 @@ This project is not affiliated with Instructure.
 Documentation Table of Contents:
  - [Installation](#installation)
  - [CLI Configuration](#cli-configuration)
+ - [Usage Notes](#usage-notes)
+    - [User Queries](#user-queries)
  - [CLI Tools](#cli-tools)
     - [List Course Users](#list-course-users)
     - [Fetch a Single User](#fetch-a-single-user)
@@ -67,6 +69,23 @@ python3 -m canvas.cli.user.list --config my_config.json
 
 For brevity, all future commands in this document will assume that all standard config options are in the default
 config files (and thus will not need to be specified).
+
+## Usage Notes
+
+### User Queries
+
+When a user is required, tools and API functions accept a "user query" (unless specified).
+A user query is any object that can be used to uniquely identify a user.
+Valud user queries are:
+ - Canvas User ID (as an integer or string of digits)
+ - Email
+ - Full Name
+ - "email (id)" where "email" is an email and "id" is a Canvas ID
+
+User queries must be unambiguous within the pool of possible users (e.g., students in a course).
+It is recommended to use an email or Canvas ID as a user query.
+Resolving a user query that is not a Canvas ID will take longer,
+because a list of users must be fetched from Canvas.
 
 ## CLI Tools
 

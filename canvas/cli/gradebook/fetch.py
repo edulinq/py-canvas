@@ -9,7 +9,7 @@ DEFAULT_INCLUDE_EMPTY_USERS = False
 
 def run_cli(include_empty_assignments = DEFAULT_INCLUDE_EMPTY_ASSIGNMENTS, include_empty_users = DEFAULT_INCLUDE_EMPTY_USERS,
         skip_headers = DEFAULT_SKIP_HEADERS, students = [], **kwargs):
-    assignments, user_grades = canvas.api.gradebook.fetch.request(users = students, **kwargs)
+    assignments, user_grades = canvas.api.gradebook.fetch.request(user_queries = students, **kwargs)
 
     if (len(assignments) == 0):
         print("No assignments found.", file = sys.stderr)
@@ -75,7 +75,7 @@ def _modify_parser(parser):
 
     parser.add_argument('students',
         nargs = '*',
-        help = 'If specified, only fetch the gradebook for the specified students (identified by email).')
+        help = 'If specified, only fetch the gradebook for the specified students.')
 
     return parser
 

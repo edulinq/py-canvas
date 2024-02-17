@@ -1,6 +1,9 @@
 {
-    "endpoint": "user/list",
+    "endpoint": "user/fetch",
     "arguments": {
+        "users": [
+            "aalvarez@ucsc.edu (10001)"
+        ]
     },
     "expected": [
         {
@@ -9,13 +12,6 @@
             "name": "Alice Alvarez",
             "enrollment": "<unknown>",
             "sis_user_id": "1000001"
-        },
-        {
-            "id": "10002",
-            "email": "bburnquist@ucsc.edu",
-            "name": "Bob Burnquist",
-            "enrollment": "<unknown>",
-            "sis_user_id": "1000002"
         }
     ]
 }

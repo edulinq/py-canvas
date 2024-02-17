@@ -2,7 +2,7 @@
     "url": "/api/v1/courses/12345/users",
     "body": [
         {
-            "id": "00001",
+            "id": "10001",
             "name": "Alice Alvarez",
             "created_at": "1970-01-01T01:01:01Z",
             "sortable_name": "Alvarez, Alice",
@@ -12,10 +12,10 @@
             "root_account": "canvas.ucsc.edu",
             "login_id": "aalvarez@ucsc.edu",
             "email": "aalvarez@ucsc.edu",
-            "analytics_url": "/courses/12345/analytics/users/00001"
+            "analytics_url": "/courses/12345/analytics/users/10001"
         },
         {
-            "id": "00002",
+            "id": "10002",
             "name": "Bob Burnquist",
             "created_at": "1970-01-01T01:01:01Z",
             "sortable_name": "Burnquist, Bob",
@@ -25,7 +25,7 @@
             "root_account": "canvas.ucsc.edu",
             "login_id": "bburnquist@ucsc.edu",
             "email": "bburnquist@ucsc.edu",
-            "analytics_url": "/courses/12345/analytics/users/00002"
+            "analytics_url": "/courses/12345/analytics/users/10002"
         }
     ]
 }

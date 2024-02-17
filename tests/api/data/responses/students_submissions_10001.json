@@ -1,5 +1,5 @@
 {
-    "url": "/api/v1/courses/12345/students/submissions?student_ids[]=00001",
+    "url": "/api/v1/courses/12345/students/submissions?student_ids[]=10001",
     "body": [
         {
             "id": "50000001",
@@ -9,7 +9,7 @@
             "score": 1.0,
             "submitted_at": "1970-01-01T01:01:01Z",
             "assignment_id": "67890",
-            "user_id": "00001",
+            "user_id": "10001",
             "submission_type": "basic_lti_launch",
             "workflow_state": "graded",
             "grade_matches_current_submission": true,
@@ -31,7 +31,7 @@
             "seconds_late": 0,
             "entered_grade": "1",
             "entered_score": 1.0,
-            "preview_url": "https://canvas.ucsc.edu/courses/12345/assignments/67890/submissions/00001?preview=1&version=2",
+            "preview_url": "https://canvas.ucsc.edu/courses/12345/assignments/67890/submissions/10001?preview=1&version=2",
             "external_tool_url": "https://ucsc.quiz-lti-iad-prod.instructure.com/lti/launch?participant_session_id=600001&quiz_session_id=600002"
         },
         {
@@ -42,7 +42,7 @@
             "score": 1.0,
             "submitted_at": "1970-01-01T01:01:01Z",
             "assignment_id": "67891",
-            "user_id": "00001",
+            "user_id": "10001",
             "submission_type": "basic_lti_launch",
             "workflow_state": "graded",
             "grade_matches_current_submission": true,
@@ -64,7 +64,7 @@
             "seconds_late": 0,
             "entered_grade": "1",
             "entered_score": 1.0,
-            "preview_url": "https://canvas.ucsc.edu/courses/12345/assignments/67891/submissions/00001?preview=1&version=2",
+            "preview_url": "https://canvas.ucsc.edu/courses/12345/assignments/67891/submissions/10001?preview=1&version=2",
             "external_tool_url": "https://ucsc.quiz-lti-iad-prod.instructure.com/lti/launch?participant_session_id=600001&quiz_session_id=600002"
         }
     ]

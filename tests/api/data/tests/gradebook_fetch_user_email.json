@@ -1,8 +1,8 @@
 {
     "endpoint": "gradebook/fetch",
     "arguments": {
-        "users": [
-            "00001"
+        "user_queries": [
+            "aalvarez@ucsc.edu"
         ]
     },
     "expected": [

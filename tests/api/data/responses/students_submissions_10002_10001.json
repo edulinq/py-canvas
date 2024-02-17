@@ -1,5 +1,5 @@
 {
-    "url": "/api/v1/courses/12345/students/submissions?student_ids[]=all",
+    "url": "/api/v1/courses/12345/students/submissions?student_ids[]=10002&student_ids[]=10001",
     "body": [
         {
             "id": "50000001",

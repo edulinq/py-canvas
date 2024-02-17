@@ -2,14 +2,13 @@ import logging
 
 import canvas.api.common
 import canvas.api.user.common
-import canvas.api.user.list
+import canvas.api.user.resolve
 
 BASE_ENDPOINT = "/api/v1/courses/{course}/users?per_page={page_size}"
 
 def request(server = None, token = None, course = None,
         users = [],
         include_role = False,
-        page_size = canvas.api.common.DEFAULT_PAGE_SIZE,
         keys = canvas.api.user.common.DEFAULT_KEYS, **kwargs):
     server = canvas.api.common.validate_param(server, 'server')
     token = canvas.api.common.validate_param(token, 'token')
@@ -21,10 +20,12 @@ def request(server = None, token = None, course = None,
     if (len(users) == 0):
         return []
 
-    if (canvas.api.user.common.requires_resolution(users)):
-        return _fetch_from_list(server, token, course, users, page_size, keys, include_role)
+    if (canvas.api.user.resolve.requires_resolution(users)):
+        return canvas.api.user.resolve.fetch_and_resolve_users(
+                server, token, course, users,
+                keys = keys, include_role = include_role)
 
-    url = server + BASE_ENDPOINT.format(course = course, page_size = page_size)
+    url = server + BASE_ENDPOINT.format(course = course, page_size = canvas.api.common.DEFAULT_PAGE_SIZE)
     headers = canvas.api.common.standard_headers(token)
 
     if (include_role):
@@ -33,15 +34,4 @@ def request(server = None, token = None, course = None,
     for user in users:
         url += "&user_ids[]=%s" % (str(user))
 
-    return canvas.api.user.common._list_users(url, headers, keys)
-
-def _fetch_from_list(server, token, course, user_queries, page_size, keys, include_role):
-    course_users = canvas.api.user.list.request(server = server, token = token,
-            course = course, page_size = page_size, include_role = include_role, keys = None)
-
-    users = canvas.api.user.common.resolve_users(user_queries, course_users)
-
-    if (keys is None):
-        return users
-
-    return [{key: user[key] for key in keys} for user in users]
+    return canvas.api.user.common.list_users(url, headers, keys)

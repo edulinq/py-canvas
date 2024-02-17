@@ -18,7 +18,6 @@ DEFAULT_KEYS = [
 ]
 
 def request(server = None, token = None, course = None, assignment = None,
-        page_size = canvas.api.common.DEFAULT_PAGE_SIZE,
         keys = DEFAULT_KEYS,
         assignment_keys = canvas.api.assignment.common.DEFAULT_KEYS, user_keys = canvas.api.user.common.DEFAULT_KEYS,
         **kwargs):
@@ -27,13 +26,13 @@ def request(server = None, token = None, course = None, assignment = None,
     course = canvas.api.common.validate_param(course, 'course', param_type = int)
     assignment = canvas.api.common.validate_param(assignment, 'assignment', param_type = int)
 
-    all_users = _fetch_users(server, token, course, page_size)
+    all_users = _fetch_users(server, token, course)
     assignment_info = canvas.api.assignment.fetch.request(server = server, token = token, course = course, assignment = assignment,
             keys = assignment_keys)
 
     logging.info("Fetching scores for assignement ('%s' (course '%s')) from '%s'." % (str(assignment), str(course), server))
 
-    url = server + BASE_ENDPOINT.format(course = course, assignment = assignment, page_size = page_size)
+    url = server + BASE_ENDPOINT.format(course = course, assignment = assignment, page_size = canvas.api.common.DEFAULT_PAGE_SIZE)
     headers = canvas.api.common.standard_headers(token)
 
     submissions = []
@@ -59,8 +58,6 @@ def request(server = None, token = None, course = None, assignment = None,
 
     return submissions
 
-def _fetch_users(server, token, course, page_size):
-    users = canvas.api.user.list.request(server = server, token = token, course = course,
-        page_size = page_size)
-
+def _fetch_users(server, token, course):
+    users = canvas.api.user.list.request(server = server, token = token, course = course)
     return {user['id']: user for user in users}

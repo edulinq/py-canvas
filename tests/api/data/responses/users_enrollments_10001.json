@@ -1,8 +1,8 @@
 {
-    "url": "/api/v1/courses/12345/users?include[]=enrollments&user_ids[]=00001",
+    "url": "/api/v1/courses/12345/users?include[]=enrollments&user_ids[]=10001",
     "body": [
         {
-            "id": "00001",
+            "id": "10001",
             "name": "Alice Alvarez",
             "created_at": "1970-01-01T01:01:01Z",
             "sortable_name": "Alvarez, Alice",
@@ -14,7 +14,7 @@
             "enrollments": [
                 {
                     "id": "3000001",
-                    "user_id": "00001",
+                    "user_id": "10001",
                     "course_id": "12345",
                     "type": "StudentEnrollment",
                     "created_at": "1970-01-01T01:01:01Z",
@@ -32,7 +32,7 @@
                     "last_attended_at": null,
                     "total_activity_time": 56802,
                     "grades": {
-                        "html_url": "https://canvas.ucsc.edu/courses/12345/grades/00001",
+                        "html_url": "https://canvas.ucsc.edu/courses/12345/grades/10001",
                         "current_grade": null,
                         "current_score": 85.45,
                         "final_grade": null,
@@ -48,11 +48,11 @@
                     "sis_section_id": "2240-124092-1-1-DIS01",
                     "section_integration_id": null,
                     "sis_user_id": "1000001",
-                    "html_url": "https://canvas.ucsc.edu/courses/12345/users/00001"
+                    "html_url": "https://canvas.ucsc.edu/courses/12345/users/10001"
                 },
                 {
                     "id": "3000002",
-                    "user_id": "00001",
+                    "user_id": "10001",
                     "course_id": "12345",
                     "type": "StudentEnrollment",
                     "created_at": "1970-01-01T01:01:01Z",
@@ -70,7 +70,7 @@
                     "last_attended_at": null,
                     "total_activity_time": 56802,
                     "grades": {
-                        "html_url": "https://canvas.ucsc.edu/courses/12345/grades/00001",
+                        "html_url": "https://canvas.ucsc.edu/courses/12345/grades/10001",
                         "current_grade": null,
                         "current_score": 85.45,
                         "final_grade": null,
@@ -86,11 +86,11 @@
                     "sis_section_id": "2240-124092-1-1-LEC01",
                     "section_integration_id": null,
                     "sis_user_id": "1000001",
-                    "html_url": "https://canvas.ucsc.edu/courses/12345/users/00001"
+                    "html_url": "https://canvas.ucsc.edu/courses/12345/users/10001"
                 }
             ],
             "email": "aalvarez@ucsc.edu",
-            "analytics_url": "/courses/12345/analytics/users/00001"
+            "analytics_url": "/courses/12345/analytics/users/10001"
         }
     ]
 }
