@@ -45,7 +45,7 @@ def make_get_request(url, headers, raise_for_status = True,
 
     return response, next_url, body
 
-def validate_param(value, name, param_type = str, optional = False):
+def validate_param(value, name, param_type = str, optional = False, strip = True):
     if (value is None):
         if (optional):
             return None
@@ -53,7 +53,11 @@ def validate_param(value, name, param_type = str, optional = False):
         raise ValueError("Parameter '%s' is missing or null/None." % (name))
 
     if (param_type == str):
-        return str(value)
+        value = str(value)
+        if (strip):
+            value = value.strip()
+
+        return value
 
     if (not isinstance(value, param_type)):
         raise ValueError("Parameter '%s' has the incorrect type '%s', expected '%s'." % (name, type(value), param_type))

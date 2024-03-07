@@ -1,0 +1,8 @@
+{
+    "endpoint": "assignment/fetchscores",
+    "arguments": {
+        "assignment": "ZZZ"
+    },
+    "expected": "Unable to resolve assignment query 'ZZZ'.",
+    "error": true
+}

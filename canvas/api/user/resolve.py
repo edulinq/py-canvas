@@ -16,8 +16,7 @@ def fetch_and_resolve_users(server, token, course, user_queries,
 
     return [{key: user[key] for key in keys} for user in users]
 
-def resolve_users(user_queries, course_users,
-        id_field = 'id'):
+def resolve_users(user_queries, course_users, id_field = 'id'):
     """
     Try to match each user query to an acutal user.
     """

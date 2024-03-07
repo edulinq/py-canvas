@@ -68,6 +68,7 @@ def get_api_test_info(path):
     import_module_name = '.'.join(['canvas', 'api', prefix, suffix])
 
     expected = data['expected']
+    error = data.get('error', False)
 
     arguments = BASE_ARGUMENTS.copy()
     for key, value in data.get('arguments', {}).items():
@@ -81,17 +82,27 @@ def get_api_test_info(path):
 
         output_modifier = globals()[modifier_name]
 
-    return import_module_name, arguments, expected, output_modifier
+    return import_module_name, arguments, expected, error, output_modifier
 
 def _get_api_test_method(path):
-    import_module_name, arguments, expected, output_modifier = get_api_test_info(path)
+    import_module_name, arguments, expected, error, output_modifier = get_api_test_info(path)
 
     def __method(self):
         api_module = importlib.import_module(import_module_name)
 
-        actual = api_module.request(**arguments)
-        if (isinstance(actual, tuple)):
-            actual = list(actual)
+        try:
+            actual = api_module.request(**arguments)
+            if (isinstance(actual, tuple)):
+                actual = list(actual)
+
+            if (error):
+                self.fail("No error was not raised when one was expected ('%s')." % (str(expected)))
+        except Exception as ex:
+            if (not error):
+                raise ex
+
+            self.assertEqual(expected, str(ex))
+            return
 
         actual = output_modifier(actual)
 

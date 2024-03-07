@@ -1,9 +1,6 @@
 {
-    "endpoint": "assignment/fetch",
-    "arguments": {
-        "keys": null
-    },
-    "expected": {
+    "url": "/api/v1/courses/12345/assignments?assignment_ids[]=67890",
+    "body": [{
         "id": "67890",
         "description": "",
         "due_at": "1970-01-01T01:01:01Z",
@@ -86,5 +83,5 @@
         "anonymize_students": false,
         "require_lockdown_browser": false,
         "restrict_quantitative_data": false
-    }
+    }]
 }

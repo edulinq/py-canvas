@@ -12,14 +12,18 @@ DEFAULT_SKIP_HEADERS = False
 def run_cli(user = None, include_role = DEFAULT_INCLUDE_ROLE,
         table = DEFAULT_TABLE, skip_headers = DEFAULT_SKIP_HEADERS,
         **kwargs):
-    user = canvas.api.user.fetch.request(users = [user], include_role = include_role,
+    raw_users = []
+    if (user is not None):
+        raw_users.append(user)
+
+    users = canvas.api.user.fetch.request(users = raw_users, include_role = include_role,
             **kwargs)
 
     keys = canvas.cli.user.common.OUTPUT_KEYS.copy()
     if (include_role):
         keys.append(canvas.cli.user.common.ENROLLMENT_KEY)
 
-    return canvas.cli.common.cli_list(user, keys,
+    return canvas.cli.common.cli_list(users, keys,
             table = table, skip_headers = skip_headers,
             collective_name = 'user', sort_key = 'email')
 

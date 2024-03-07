@@ -137,7 +137,7 @@ def get_argument_parser(description = '', course = True, assignment = False, **k
 
     if (assignment):
         parser.add_argument('--assignment', dest = 'assignment',
-            action = 'store', type = int, default = None,
-            help = 'The Canvas assignment ID.')
+            action = 'store', type = str, default = None,
+            help = 'The query for the Canvas assignment.')
 
     return parser

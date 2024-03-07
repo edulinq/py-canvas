@@ -2,7 +2,7 @@
     "endpoint": "assignment/fetch",
     "arguments": {
         "assignments": [
-            67890
+            "Assignment 1"
         ]
     },
     "expected": [

@@ -9,6 +9,7 @@ Documentation Table of Contents:
  - [CLI Configuration](#cli-configuration)
  - [Usage Notes](#usage-notes)
     - [User Queries](#user-queries)
+    - [Assignment Queries](#assignment-queries)
  - [CLI Tools](#cli-tools)
     - [List Course Users](#list-course-users)
     - [Fetch a Single User](#fetch-a-single-user)
@@ -39,7 +40,7 @@ To know who you are and what you are working on the package needs a few configur
  - `server` -- The Canvas server to connect to.
  - `course` -- The Canvas ID for the course you are working with.
  - `token` -- Your Canvas API token (see the [Canvas documentation](https://community.canvaslms.com/t5/Admin-Guide/How-do-I-manage-API-access-tokens-as-an-admin/ta-p/89).
- - `assignment` -- The Canvas ID for the current assignment you are working on (does not always apply).
+ - `assignment` -- A query for the current assignment you are working on (does not always apply).
 
 All these options can be set on the command line when invoking on of these tools, e.g.,:
 ```sh
@@ -76,7 +77,7 @@ config files (and thus will not need to be specified).
 
 When a user is required, tools and API functions accept a "user query" (unless specified).
 A user query is any object that can be used to uniquely identify a user.
-Valud user queries are:
+Valid user queries are:
  - Canvas User ID (as an integer or string of digits)
  - Email
  - Full Name
@@ -86,6 +87,19 @@ User queries must be unambiguous within the pool of possible users (e.g., studen
 It is recommended to use an email or Canvas ID as a user query.
 Resolving a user query that is not a Canvas ID will take longer,
 because a list of users must be fetched from Canvas.
+
+### Assignment Queries
+
+When an assignment is required, tools and API functions accept an "assignment query" (unless specified).
+An assignment query is any object that can be used to uniquely identify an assignment.
+Valid assignment queries are:
+ - Canvas Assignment ID (as an integer or string of digits)
+ - Full Name
+ - "name (id)" where "name" is a full assignment name and "id" is a Canvas ID
+
+Assignment queries must be unambiguous within the pool of possible assignments (e.g., assignments in a course).
+Resolving an assignment query that is not a Canvas ID will take longer,
+because a list of assignments must be fetched from Canvas.
 
 ## CLI Tools
 
@@ -157,6 +171,8 @@ Fetch information about a single assignment using the `canvas.cli.assignment.fet
 For example:
 ```
 python3 -m canvas.cli.assignment.fetch 123456
+
+python3 -m canvas.cli.assignment.fetch 'My Assignment'
 ```
 
 ### Fetch Assignment Scores
@@ -165,6 +181,8 @@ To fetch the scores for a specific assignment, use the `canvas.cli.assignment.fe
 For example:
 ```
 python3 -m canvas.cli.assignment.fetch-scores --assignment 123456
+
+python3 -m canvas.cli.assignment.fetch-scores --assignment 'My Assignment'
 ```
 
 The student's email and score will be written to stdout as a tab-separated row.

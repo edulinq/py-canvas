@@ -1,0 +1,5 @@
+{
+    "endpoint": "assignment/fetch",
+    "arguments": {},
+    "expected": []
+}

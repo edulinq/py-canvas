@@ -3,6 +3,7 @@ import requests
 
 import canvas.api.assignment.common
 import canvas.api.assignment.fetch
+import canvas.api.assignment.resolve
 import canvas.api.common
 import canvas.api.user.common
 import canvas.api.user.list
@@ -24,15 +25,22 @@ def request(server = None, token = None, course = None, assignment = None,
     server = canvas.api.common.validate_param(server, 'server')
     token = canvas.api.common.validate_param(token, 'token')
     course = canvas.api.common.validate_param(course, 'course', param_type = int)
-    assignment = canvas.api.common.validate_param(assignment, 'assignment', param_type = int)
+    assignment = canvas.api.common.validate_param(assignment, 'assignment')
+
+    logging.info("Fetching scores for assignement ('%s' (course '%s')) from '%s'." % (assignment, str(course), server))
+
+    resolved_assignments = canvas.api.assignment.fetch.request(server = server, token = token, course = course,
+            assignments = [assignment], keys = assignment_keys)
+
+    if (len(resolved_assignments) == 0):
+        raise ValueError("Unable to resolve assignment query '%s'." % (assignment))
+
+    assignment_info = resolved_assignments[0]
 
     all_users = _fetch_users(server, token, course)
-    assignment_info = canvas.api.assignment.fetch.request(server = server, token = token, course = course, assignment = assignment,
-            keys = assignment_keys)
 
-    logging.info("Fetching scores for assignement ('%s' (course '%s')) from '%s'." % (str(assignment), str(course), server))
-
-    url = server + BASE_ENDPOINT.format(course = course, assignment = assignment, page_size = canvas.api.common.DEFAULT_PAGE_SIZE)
+    url = server + BASE_ENDPOINT.format(course = course, assignment = assignment_info['id'],
+            page_size = canvas.api.common.DEFAULT_PAGE_SIZE)
     headers = canvas.api.common.standard_headers(token)
 
     submissions = []

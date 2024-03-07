@@ -16,15 +16,4 @@ def request(server = None, token = None, course = None,
     url = server + BASE_ENDPOINT.format(course = course, page_size = canvas.api.common.DEFAULT_PAGE_SIZE)
     headers = canvas.api.common.standard_headers(token)
 
-    assignments = []
-
-    while (url is not None):
-        _, url, new_assignments = canvas.api.common.make_get_request(url, headers)
-
-        for new_assignment in new_assignments:
-            if (keys is not None):
-                new_assignment = {key: new_assignment[key] for key in keys}
-
-            assignments.append(new_assignment)
-
-    return assignments
+    return canvas.api.assignment.common.list_assignments(url, headers, keys)
