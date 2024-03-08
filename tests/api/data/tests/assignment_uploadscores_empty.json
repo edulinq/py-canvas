@@ -1,0 +1,12 @@
+{
+    "endpoint": "assignment/uploadscores",
+    "arguments": {
+        "users": [
+        ],
+        "scores": [
+        ],
+        "comments": [
+        ]
+    },
+    "expected": false
+}

@@ -3,7 +3,6 @@ import requests
 
 import canvas.api.assignment.common
 import canvas.api.assignment.fetch
-import canvas.api.assignment.resolve
 import canvas.api.common
 import canvas.api.user.common
 import canvas.api.user.list

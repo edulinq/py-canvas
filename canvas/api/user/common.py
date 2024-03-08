@@ -9,7 +9,7 @@ DEFAULT_KEYS = [
     'sis_user_id',
 ]
 
-def list_users(url, headers, keys):
+def list_users(url, headers, keys, missing_value = ''):
     output = []
 
     while (url is not None):
@@ -21,7 +21,7 @@ def list_users(url, headers, keys):
             new_user['enrollment'] = canvas.api.common.get_max_enrollment_type(enrollment_types)
 
             if (keys is not None):
-                new_user = {key: new_user[key] for key in keys}
+                new_user = {key: new_user.get(key, missing_value) for key in keys}
 
             output.append(new_user)
 

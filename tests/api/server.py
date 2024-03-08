@@ -69,6 +69,9 @@ class Handler(http.server.BaseHTTPRequestHandler):
 
         self.wfile.write(payload.encode(ENCODING))
 
+    def do_POST(self):
+        self.do_GET()
+
     def _get_response(self, path):
         path = urllib.parse.unquote(path)
 

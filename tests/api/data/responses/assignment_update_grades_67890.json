@@ -1,0 +1,4 @@
+{
+    "url": "/api/v1/courses/12345/assignments/67890/submissions/update_grades",
+    "body": true
+}
