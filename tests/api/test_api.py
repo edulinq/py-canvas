@@ -29,16 +29,16 @@ class APITest(unittest.TestCase):
     Test API calls by mocking a server.
     """
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self._server_process = None
+    _server_process = None
 
-    def setUp(self):
-        self._server_process = tests.api.server.start(RESPONSES_DIR)
+    @classmethod
+    def setUpClass(cls):
+        cls._server_process = tests.api.server.start(RESPONSES_DIR)
 
-    def tearDown(self):
-        tests.api.server.stop(self._server_process)
-        self._server_process = None
+    @classmethod
+    def tearDownClass(cls):
+        tests.api.server.stop(cls._server_process)
+        cls._server_process = None
 
     def assertJSONEqual(self, a, b):
         a_json = json.dumps(a, indent = 4)
