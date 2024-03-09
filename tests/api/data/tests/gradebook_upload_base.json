@@ -1,0 +1,15 @@
+{
+    "endpoint": "gradebook/upload",
+    "arguments": {
+        "assignments": [
+            "67890"
+        ],
+        "users": [
+            "10001"
+        ],
+        "scores": [
+            [1]
+        ]
+    },
+    "expected": true
+}

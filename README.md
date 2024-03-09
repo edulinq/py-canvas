@@ -13,10 +13,12 @@ Documentation Table of Contents:
  - [CLI Tools](#cli-tools)
     - [List Course Users](#list-course-users)
     - [Fetch a Single User](#fetch-a-single-user)
-    - [Fetch Gradebook](#fetch-gradebook)
     - [List Assignments](#list-assignments)
     - [Fetch a Single Assignment](#fetch-a-single-assignment)
     - [Fetch Assignment Scores](#fetch-assignment-scores)
+    - [Upload Assignment Scores](#upload-assignment-scores)
+    - [Fetch Gradebook](#fetch-gradebook)
+    - [Upload Gradebook](#upload-gradebook)
 
 ## Installation
 
@@ -126,32 +128,6 @@ For example:
 python3 -m canvas.cli.user.fetch 12345
 ```
 
-### Fetch Gradebook
-
-To fetch the full gradebook for a course, use the `canvas.cli.gradebook.fetch` tool.
-For example:
-```
-python3 -m canvas.cli.gradebook.fetch
-```
-
-A gradebook will be written to stdout as a tab-separated file.
-To output the gradebook to a file, you can redirect stdout to a file.
-Expect this command to take a few minutes for larger classes.
-
-You can limit to gradebook to only specific students by specifying their IDs on the command line.
-Any number of students can be specified.
-```
-python3 -m canvas.cli.gradebook.fetch 12345 67890
-```
-
-By default, assignments and users without submissions will be pruned.
-They can be included by using the respective `--include-empty-assignments` and `--include-empty-users` flags.
-
-For example, you can write a gradebook with all assignments and users to `grades.txt` using the following command:
-```
-python3 -m canvas.cli.gradebook.fetch --include-empty-assignments --include-empty-users > grades.txt
-```
-
 ### List Assignments
 
 Course assignments can be listed using the `canvas.cli.assignment.list` tool.
@@ -186,3 +162,75 @@ python3 -m canvas.cli.assignment.fetch-scores --assignment 'My Assignment'
 ```
 
 The student's email and score will be written to stdout as a tab-separated row.
+
+### Upload Assignment Scores
+
+Uploading scores for an assignment can be done with the `canvas.cli.assignment.upload-scores` tool:
+```
+python3 -m canvas.cli.assignment.upload-scores <assignment query> <path>
+```
+
+Where `<path>` points to a tab-separated file where each row has 2-3 columns: email, score, and comment (optional).
+Each row does not need to have the same length (i.e., some rows can have comments where others do not).
+Empty comments are ignored.
+
+The `--skip-rows` argument can be used to skip a specified number of header rows.
+For example:
+```
+python3 -m canvas.cli.assignment.upload-scores 'My Assignment' grades.txt --skip-rows 1
+```
+
+Where `grades.txt` looks like:
+```
+user	score	comment?
+1001	75
+alice@uni.edu	100	Great Job!
+```
+
+### Fetch Gradebook
+
+To fetch the full gradebook for a course, use the `canvas.cli.gradebook.fetch` tool.
+For example:
+```
+python3 -m canvas.cli.gradebook.fetch
+```
+
+A gradebook will be written to stdout as a tab-separated file.
+To output the gradebook to a file, you can redirect stdout to a file.
+Expect this command to take a few minutes for larger classes.
+
+You can limit to gradebook to only specific students by specifying their IDs on the command line.
+Any number of students can be specified.
+```
+python3 -m canvas.cli.gradebook.fetch 12345 67890
+```
+
+By default, assignments and users without submissions will be pruned.
+They can be included by using the respective `--include-empty-assignments` and `--include-empty-users` flags.
+
+For example, you can write a gradebook with all assignments and users to `grades.txt` using the following command:
+```
+python3 -m canvas.cli.gradebook.fetch --include-empty-assignments --include-empty-users > grades.txt
+```
+
+### Upload Gradebook
+
+To upload a gradebook, use the `canvas.cli.gradebook.upload` tool:
+```
+python3 -m canvas.cli.gradebook.upload <path>
+```
+
+Where `<path>` points to a gradebook file that has the same format as the output from `canvas.cli.gradebook.fetch`:
+a tab-separated file with users down the rows and assignments along the columns.
+The first column is user queries where the first cell is ignored,
+the first row is assignment queries where the first cell is ignored,
+and the remaining cells are the associated scores.
+Any number of users and assignments can be specified as long as they exist in the course.
+Empty cells will not be uploaded.
+
+A gradebook file can look like:
+```
+user	98765	Assignment 2
+1001	1	2
+alice@uni.edu	3	
+```

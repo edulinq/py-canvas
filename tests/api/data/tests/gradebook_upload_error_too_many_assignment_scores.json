@@ -1,0 +1,16 @@
+{
+    "endpoint": "gradebook/upload",
+    "arguments": {
+        "assignments": [
+            "67890"
+        ],
+        "users": [
+            "10001"
+        ],
+        "scores": [
+            [1, 2]
+        ]
+    },
+    "error": true,
+    "expected": "Scores for user '10001' does not match the number of assignment (1), found 2 scores."
+}

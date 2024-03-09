@@ -45,6 +45,29 @@ def make_get_request(url, headers, raise_for_status = True,
 
     return response, next_url, body
 
+# Return: (response, body)
+def make_post(url, headers, data,
+        raise_for_status = True, json_body = True):
+    logging.info("Making request: '%s'." % (url))
+    logging.debug("Data:\n%s" % json.dumps(data, indent = 4))
+
+    response = requests.post(url, headers = headers, data = data)
+    response.raise_for_status()
+
+    body = None
+    log_body = None
+    if (json_body):
+        body = response.json()
+        if (logging.getLogger().level <= logging.DEBUG):
+            log_body = json.dumps(body, indent = 4)
+    else:
+        body = response.text
+        log_body = body
+
+    logging.debug("Response:\n%s" % log_body)
+
+    return response, body
+
 def validate_param(value, name, param_type = str, optional = False, strip = True):
     if (value is None):
         if (optional):

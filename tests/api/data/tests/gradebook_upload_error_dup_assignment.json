@@ -1,0 +1,17 @@
+{
+    "endpoint": "gradebook/upload",
+    "arguments": {
+        "assignments": [
+            "67890",
+            "Assignment 1"
+        ],
+        "users": [
+            "10001"
+        ],
+        "scores": [
+            [1, 1]
+        ]
+    },
+    "error": true,
+    "expected": "Found duplicates in assignments: [(67890, Assignment 1)]."
+}

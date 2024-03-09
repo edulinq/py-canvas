@@ -15,7 +15,7 @@ def request(server = None, token = None, course = None, assignment = None,
     course = canvas.api.common.validate_param(course, 'course', param_type = int)
     assignment = canvas.api.common.validate_param(assignment, 'assignment')
 
-    logging.info("Uploading %d scores for assignement ('%s' (course '%s')) from '%s'." % (len(users), assignment, str(course), server))
+    logging.info("Uploading %d scores for assignment ('%s' (course '%s')) from '%s'." % (len(users), assignment, str(course), server))
 
     if (canvas.api.assignment.resolve.requires_resolution([assignment])):
         resolved_assignments = canvas.api.assignment.resolve.fetch_and_resolve_assignments(server, token, course, [assignment])
@@ -26,19 +26,26 @@ def request(server = None, token = None, course = None, assignment = None,
 
     if (canvas.api.user.resolve.requires_resolution(users)):
         resolved_users = canvas.api.user.resolve.fetch_and_resolve_users(server, token, course, users)
+        if (len(resolved_users) == 0):
+            raise ValueError("Unable to resolve all user queries.")
+
         users = [resolved_user['id'] for resolved_user in resolved_users]
 
-    if ((len(users) != len(scores)) or (len(users) != len(comments))):
-        raise ValueError("Mismatched count of users (%d), scores (%d), and comments (%d)." % (len(users), len(scores), len(comments)))
+    return direct_request(server, token, course, assignment, users, scores, comments = comments)
 
-    if (len(users) == 0):
-        return False
+# Perform the request with no resolution and minimal validation.
+def direct_request(server, token, course, assignment, users, scores, comments = None):
+    if ((len(users) != len(scores)) or ((comments is not None) and (len(users) != len(comments)))):
+        raise ValueError("Mismatched count of users (%d), scores (%d), and comments (%d)." % (len(users), len(scores), len(comments)))
 
     data = {}
     for i in range(len(users)):
+        if ((users[i] is None) or (scores[i] is None)):
+            continue
+
         data["grade_data[%s][posted_grade]" % (users[i])] = scores[i]
 
-        if (comments[i] is None):
+        if ((comments is None) or (comments[i] is None)):
             continue
 
         comment = comments[i].strip()
@@ -47,10 +54,12 @@ def request(server = None, token = None, course = None, assignment = None,
 
         data["grade_data[%s][text_comment]" % (users[i])] = comment
 
+    if (len(data) == 0):
+        return False
+
     url = server + BASE_ENDPOINT.format(course = course, assignment = assignment)
     headers = canvas.api.common.standard_headers(token)
 
-    response = requests.post(url, headers = headers, data = data)
-    response.raise_for_status()
+    canvas.api.common.make_post(url, headers, data)
 
     return True

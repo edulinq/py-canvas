@@ -1,0 +1,18 @@
+{
+    "endpoint": "gradebook/upload",
+    "arguments": {
+        "assignments": [
+            "67890"
+        ],
+        "users": [
+            "aalvarez@ucsc.edu",
+            "10001"
+        ],
+        "scores": [
+            [1],
+            [1]
+        ]
+    },
+    "error": true,
+    "expected": "Found duplicates in users: [(aalvarez@ucsc.edu, 10001)]."
+}

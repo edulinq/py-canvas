@@ -1,7 +1,6 @@
 import ast
 import sys
 
-import canvas.api.assignment.resolve
 import canvas.api.assignment.uploadscores
 import canvas.config
 
@@ -33,21 +32,23 @@ def _load_scores(path, skip_rows):
             if (line == ""):
                 continue
 
-            parts = line.split("\t")
+            parts = [part.strip() for part in line.split("\t")]
             if (len(parts) not in [2, 3]):
                 raise ValueError(
                     "File '%s' line %d has the incorrect number of values." % (path, lineno)
                     + " Expecting 2-3, found %d." % (len(parts)))
 
-            try:
-                parts[1] = ast.literal_eval(parts[1])
-            except Exception as ex:
-                raise ValueError(
-                    "File '%s' line %d has a score that cannot be" % (path, lineno)
-                    + " converted to a number: '%s'." % (parts[1])) from ex
+            score = None
+            if (parts[1] != ''):
+                try:
+                    score = ast.literal_eval(parts[1])
+                except Exception as ex:
+                    raise ValueError(
+                        "File '%s' line %d has a score that cannot be" % (path, lineno)
+                        + " converted to a number: '%s'." % (parts[1])) from ex
 
             users.append(parts[0])
-            scores.append(parts[1])
+            scores.append(score)
 
             if (len(parts) >= 3):
                 comments.append(parts[2].strip())

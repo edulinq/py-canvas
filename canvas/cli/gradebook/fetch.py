@@ -31,7 +31,7 @@ def run_cli(include_empty_assignments = DEFAULT_INCLUDE_EMPTY_ASSIGNMENTS, inclu
         sorted_assignments = new_assignments
 
     if (not skip_headers):
-        headers = ["%s (%s)" % (assignment['name'], assignment['id']) for assignment in sorted_assignments]
+        headers = ["%s (%s)" % (assignment['name'], str(assignment['id'])) for assignment in sorted_assignments]
         print("\t".join(['email'] + headers))
 
     for (email, grades) in user_grades.items():

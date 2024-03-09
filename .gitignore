@@ -11,5 +11,6 @@ __pycache__/
 /build/
 
 /test.*
+/*_test.*
 
 /.secrets
