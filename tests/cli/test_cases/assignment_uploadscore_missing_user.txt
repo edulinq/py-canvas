@@ -1,0 +1,11 @@
+{
+    "cli": "canvas.cli.assignment.upload-score",
+    "arguments": [
+        "67890",
+        "ZZZ",
+        "1"
+    ],
+    "error": true
+}
+---
+Unable to resolve all user queries.

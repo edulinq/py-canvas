@@ -17,6 +17,7 @@ Documentation Table of Contents:
     - [Fetch a Single Assignment](#fetch-a-single-assignment)
     - [Fetch Assignment Scores](#fetch-assignment-scores)
     - [Upload Assignment Scores](#upload-assignment-scores)
+    - [Upload Single Assignment Score](#upload-single-assignment-score)
     - [Fetch Gradebook](#fetch-gradebook)
     - [Upload Gradebook](#upload-gradebook)
 
@@ -185,6 +186,20 @@ Where `grades.txt` looks like:
 user	score	comment?
 1001	75
 alice@uni.edu	100	Great Job!
+```
+
+### Upload Single Assignment Score
+
+To upload just one assignment score without a file, you can use the `canvas.cli.assignment.upload-score` tool:
+```
+python3 -m canvas.cli.assignment.upload-score <assignment query> <user query> <score> [comment]
+```
+
+Note that the comment is optional.
+
+For example:
+```
+python3 -m canvas.cli.assignment.upload-score 'My Assignment' alice@uni.edu 100 'Great Job!'
 ```
 
 ### Fetch Gradebook

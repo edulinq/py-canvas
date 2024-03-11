@@ -1,0 +1,11 @@
+{
+    "cli": "canvas.cli.assignment.upload-score",
+    "arguments": [
+        "ZZZ",
+        "10001",
+        "1"
+    ],
+    "error": true
+}
+---
+Unable to resolve assignment query 'ZZZ'.

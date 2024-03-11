@@ -62,7 +62,7 @@ def main():
     return run_cli(**config)
 
 def _modify_parser(parser):
-    parser.description = 'Fetch information for an assignment.'
+    parser.description = 'Upload scores (and optional comments) for an assignment.'
 
     parser.add_argument('--skip-rows', dest = 'skip_rows',
         action = 'store', type = int, default = DEFAULT_SKIP_ROWS,

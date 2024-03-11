@@ -1,0 +1,10 @@
+{
+    "cli": "canvas.cli.assignment.upload-score",
+    "arguments": [
+        "Quiz 1",
+        "bburnquist@ucsc.edu",
+        "1"
+    ]
+}
+---
+Uploaded 1 Scores

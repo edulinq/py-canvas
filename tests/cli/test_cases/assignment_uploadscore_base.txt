@@ -1,0 +1,10 @@
+{
+    "cli": "canvas.cli.assignment.upload-score",
+    "arguments": [
+        "67890",
+        "10001",
+        "1"
+    ]
+}
+---
+Uploaded 1 Scores
