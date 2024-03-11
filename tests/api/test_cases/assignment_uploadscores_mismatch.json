@@ -1,0 +1,18 @@
+{
+    "endpoint": "assignment/uploadscores",
+    "arguments": {
+        "assignment": "67890",
+        "users": [
+            "10001"
+        ],
+        "scores": [
+            1,
+            2
+        ],
+        "comments": [
+            null
+        ]
+    },
+    "expected": "Mismatched count of users (1), scores (2), and comments (1).",
+    "error": true
+}

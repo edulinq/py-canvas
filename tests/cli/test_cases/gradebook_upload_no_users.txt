@@ -1,0 +1,6 @@
+{
+    "cli": "canvas.cli.gradebook.upload",
+    "arguments": ["__DATA_DIR__(gradebook_upload_no_users.txt)"]
+}
+---
+Uploaded 0 Scores

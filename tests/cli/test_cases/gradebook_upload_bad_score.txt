@@ -1,0 +1,7 @@
+{
+    "cli": "canvas.cli.gradebook.upload",
+    "arguments": ["__DATA_DIR__(gradebook_upload_bad_score.txt)"],
+    "error": true
+}
+---
+Gradebook '__DATA_DIR__(gradebook_upload_bad_score.txt)' line 2 column 3 has a score that cannot be converted to a number: 'z'.

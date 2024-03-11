@@ -1,0 +1,7 @@
+{
+    "cli": "canvas.cli.gradebook.fetch",
+    "arguments": ["10001"]
+}
+---
+email	Assignment 1 (67890)	Quiz 1 (67891)
+aalvarez@ucsc.edu	1.0	1.0

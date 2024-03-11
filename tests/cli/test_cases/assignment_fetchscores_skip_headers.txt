@@ -1,0 +1,7 @@
+{
+    "cli": "canvas.cli.assignment.fetch-scores",
+    "arguments": ["67890", "--skip-headers"]
+}
+---
+aalvarez@ucsc.edu	1.0
+bburnquist@ucsc.edu	0.5

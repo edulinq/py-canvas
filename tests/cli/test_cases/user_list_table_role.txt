@@ -1,0 +1,8 @@
+{
+    "cli": "canvas.cli.user.list",
+    "arguments": ["--table", "--include-role"]
+}
+---
+email	name	canvas_id	student_id	role
+aalvarez@ucsc.edu	Alice Alvarez	10001	1000001	StudentEnrollment
+bburnquist@ucsc.edu	Bob Burnquist	10002	1000002	StudentEnrollment

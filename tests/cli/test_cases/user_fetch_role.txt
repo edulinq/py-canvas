@@ -1,0 +1,10 @@
+{
+    "cli": "canvas.cli.user.fetch",
+    "arguments": ["10001", "--include-role"]
+}
+---
+Email: aalvarez@ucsc.edu
+Name: Alice Alvarez
+Canvas ID: 10001
+Student ID: 1000001
+Course Role: StudentEnrollment

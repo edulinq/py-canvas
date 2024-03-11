@@ -38,12 +38,14 @@ def direct_request(server, token, course, assignment, users, scores, comments = 
     if ((len(users) != len(scores)) or ((comments is not None) and (len(users) != len(comments)))):
         raise ValueError("Mismatched count of users (%d), scores (%d), and comments (%d)." % (len(users), len(scores), len(comments)))
 
+    score_count = 0
     data = {}
     for i in range(len(users)):
         if ((users[i] is None) or (scores[i] is None)):
             continue
 
         data["grade_data[%s][posted_grade]" % (users[i])] = scores[i]
+        score_count += 1
 
         if ((comments is None) or (comments[i] is None)):
             continue
@@ -54,12 +56,12 @@ def direct_request(server, token, course, assignment, users, scores, comments = 
 
         data["grade_data[%s][text_comment]" % (users[i])] = comment
 
-    if (len(data) == 0):
-        return False
+    if (score_count == 0):
+        return 0
 
     url = server + BASE_ENDPOINT.format(course = course, assignment = assignment)
     headers = canvas.api.common.standard_headers(token)
 
     canvas.api.common.make_post(url, headers, data)
 
-    return True
+    return score_count

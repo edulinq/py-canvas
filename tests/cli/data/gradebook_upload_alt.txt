@@ -1,0 +1,3 @@
+email	Assignment 1	67891
+Alice Alvarez	1.0	1.0
+10002	0.5	1.0

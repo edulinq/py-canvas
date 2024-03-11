@@ -1,0 +1,7 @@
+{
+    "cli": "canvas.cli.gradebook.upload",
+    "arguments": ["__DATA_DIR__(gradebook_upload_dup_assignment.txt)"],
+    "error": true
+}
+---
+Gradebook '__DATA_DIR__(gradebook_upload_dup_assignment.txt)' has a duplicate assignment: 'foo'.

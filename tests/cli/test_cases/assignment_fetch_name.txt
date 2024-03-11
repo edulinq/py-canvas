@@ -1,0 +1,11 @@
+{
+    "cli": "canvas.cli.assignment.fetch",
+    "arguments": ["Assignment 1"]
+}
+---
+Name: Assignment 1
+Canvas ID: 67890
+Points Possible: 1.0
+Published: True
+Due At: 1970-01-01T01:01:01Z
+Description: The first assignment.

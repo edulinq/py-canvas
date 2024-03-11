@@ -1,0 +1,5 @@
+{
+    "cli": "canvas.cli.assignment.fetch",
+    "arguments": ["ZZZ"]
+}
+---

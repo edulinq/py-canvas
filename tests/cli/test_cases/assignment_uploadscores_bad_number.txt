@@ -1,0 +1,7 @@
+{
+    "cli": "canvas.cli.assignment.upload-scores",
+    "arguments": ["67890", "__DATA_DIR__(assignment_uploadscores_bad_number.txt)"],
+    "error": true
+}
+---
+File '__DATA_DIR__(assignment_uploadscores_bad_number.txt)' line 1 has a score that cannot be converted to a number: 'z'.

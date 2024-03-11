@@ -1,0 +1,7 @@
+{
+    "cli": "canvas.cli.assignment.upload-scores",
+    "arguments": ["67890", "__DATA_DIR__(assignment_uploadscores_missing_user.txt)"],
+    "error": true
+}
+---
+Unable to resolve all user queries.

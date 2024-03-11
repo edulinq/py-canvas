@@ -1,0 +1,8 @@
+{
+    "cli": "canvas.cli.assignment.fetch-scores",
+    "arguments": ["Assignment 1"]
+}
+---
+email	Assignment 1 (67890)
+aalvarez@ucsc.edu	1.0
+bburnquist@ucsc.edu	0.5

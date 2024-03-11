@@ -1,0 +1,7 @@
+{
+    "cli": "canvas.cli.gradebook.upload",
+    "arguments": ["__DATA_DIR__(gradebook_upload_missing_assignment.txt)"],
+    "error": true
+}
+---
+Unable to resolve all assignment queries.

@@ -7,11 +7,11 @@ import canvas.config
 def run_cli(path = None, **kwargs):
     assignments, users, scores = _load_gradebook(path)
 
-    assignments = canvas.api.gradebook.upload.request(
+    score_count = canvas.api.gradebook.upload.request(
             assignments = assignments, users = users, scores = scores,
             **kwargs)
 
-    print("Gradebook Uploaded")
+    print("Uploaded %d Scores" % (score_count))
     return 0
 
 # Return: ([assignment, ...], [user, ...], [[score, ...], ...])
@@ -27,8 +27,7 @@ def _load_gradebook(path):
         for line in file:
             lineno += 1
 
-            line = line.strip()
-            if (line == ""):
+            if (line.strip() == ""):
                 continue
 
             parts = [part.strip() for part in line.split("\t")]
@@ -52,7 +51,7 @@ def _load_gradebook(path):
             if (len(parts) != (len(assignments) + 1)):
                 raise ValueError(
                     "Gradebook '%s' line %d has the incorrect number of values." % (path, lineno)
-                    + " Expecting %d, found %d." % ((len(gradebook) + 1), len(parts)))
+                    + " Expecting %d, found %d." % ((len(assignments) + 1), len(parts)))
 
             user = parts.pop(0)
             if (user == ''):

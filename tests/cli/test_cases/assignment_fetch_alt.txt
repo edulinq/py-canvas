@@ -1,0 +1,11 @@
+{
+    "cli": "canvas.cli.assignment.fetch",
+    "arguments": ["67891"]
+}
+---
+Name: Quiz 1
+Canvas ID: 67891
+Points Possible: 1.0
+Published: False
+Due At: 
+Description: 

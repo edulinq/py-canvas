@@ -1,0 +1,5 @@
+{
+    "cli": "canvas.cli.user.fetch",
+    "arguments": ["zzz"]
+}
+---

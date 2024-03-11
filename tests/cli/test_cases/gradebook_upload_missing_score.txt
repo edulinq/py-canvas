@@ -1,0 +1,6 @@
+{
+    "cli": "canvas.cli.gradebook.upload",
+    "arguments": ["__DATA_DIR__(gradebook_upload_missing_score.txt)"]
+}
+---
+Uploaded 2 Scores

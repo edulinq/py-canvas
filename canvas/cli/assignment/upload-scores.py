@@ -8,11 +8,11 @@ DEFAULT_SKIP_ROWS = 0
 
 def run_cli(assignment = None, path = None, skip_rows = DEFAULT_SKIP_ROWS, **kwargs):
     users, scores, comments = _load_scores(path, skip_rows)
-    assignments = canvas.api.assignment.uploadscores.request(assignment = assignment,
+    score_count = canvas.api.assignment.uploadscores.request(assignment = assignment,
             users = users, scores = scores, comments = comments,
             **kwargs)
 
-    print("%d Scores Uploaded" % (len(users)))
+    print("Uploaded %d Scores" % (score_count))
     return 0
 
 def _load_scores(path, skip_rows):

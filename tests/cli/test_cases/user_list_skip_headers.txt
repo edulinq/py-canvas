@@ -1,0 +1,7 @@
+{
+    "cli": "canvas.cli.user.list",
+    "arguments": ["--table", "--skip-headers"]
+}
+---
+aalvarez@ucsc.edu	Alice Alvarez	10001	1000001
+bburnquist@ucsc.edu	Bob Burnquist	10002	1000002

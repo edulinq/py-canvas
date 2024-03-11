@@ -1,0 +1,6 @@
+{
+    "cli": "canvas.cli.user.fetch",
+    "arguments": ["10001", "--table", "--skip-headers"]
+}
+---
+aalvarez@ucsc.edu	Alice Alvarez	10001	1000001

@@ -1,0 +1,7 @@
+{
+    "cli": "canvas.cli.gradebook.upload",
+    "arguments": ["__DATA_DIR__(gradebook_upload_empty_assignment_name.txt)"],
+    "error": true
+}
+---
+Gradebook '__DATA_DIR__(gradebook_upload_empty_assignment_name.txt)' has an empty assignment name.

@@ -38,16 +38,16 @@ def request(server = None, token = None, course = None,
     _validate_dups(users, original_users, 'users')
     _validate_dups(assignments, original_assignments, 'assignments')
 
-    uploaded_scores = False
+    score_count = 0
 
     for assignment_index in range(len(assignments)):
         assignment = assignments[assignment_index]
         assignment_scores = [scores[user_index][assignment_index] for user_index in range(len(users))]
 
-        uploaded_scores |= canvas.api.assignment.uploadscores.direct_request(server, token, course,
+        score_count += canvas.api.assignment.uploadscores.direct_request(server, token, course,
                 assignment, users, assignment_scores)
 
-    return uploaded_scores
+    return score_count
 
 def _validate_shape(assignments, users, scores):
     if (len(scores) != len(users)):

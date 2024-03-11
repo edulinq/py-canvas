@@ -99,7 +99,7 @@ def get_tiered_config(cli_arguments, skip_keys = [CONFIG_PATHS_KEY]):
 
     return config
 
-def get_argument_parser(description = '', course = True, assignment = False, **kwargs):
+def get_argument_parser(description = '', course = True, **kwargs):
     """
     Create an argparse parser that has all the standard options for API requests.
     """
@@ -134,10 +134,5 @@ def get_argument_parser(description = '', course = True, assignment = False, **k
         parser.add_argument('--course', dest = 'course',
             action = 'store', type = int, default = None,
             help = 'The Canvas course ID.')
-
-    if (assignment):
-        parser.add_argument('--assignment', dest = 'assignment',
-            action = 'store', type = str, default = None,
-            help = 'The query for the Canvas assignment.')
 
     return parser

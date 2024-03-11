@@ -1,0 +1,9 @@
+{
+    "cli": "canvas.cli.user.fetch",
+    "arguments": ["10002"]
+}
+---
+Email: bburnquist@ucsc.edu
+Name: Bob Burnquist
+Canvas ID: 10002
+Student ID: 1000002

@@ -2,103 +2,70 @@ import glob
 import json
 import importlib
 import os
-import unittest
-import sys
 
-import tests.api.server
+import tests.server.base
 
 THIS_DIR = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
-DATA_DIR = os.path.join(THIS_DIR, "data")
-TESTS_DIR = os.path.join(DATA_DIR, "tests")
-RESPONSES_DIR = os.path.join(DATA_DIR, "responses")
+TEST_CASES_DIR = os.path.join(THIS_DIR, "test_cases")
 
-SERVER_URL = "http://127.0.0.1:%s" % (tests.api.server.PORT)
-FORMAT_STR = "\n--- Expected ---\n%s\n--- Actual ---\n%s\n---\n"
-
-BASE_ARGUMENTS = {
-    'server': SERVER_URL,
-    'token': 'abc123',
-    'course': 12345,
-    'assignment': 67890,
-    'page_size': 95,
-}
-
-@unittest.skipUnless(sys.platform.startswith('linux'), 'linux only (multiprocessing)')
-class APITest(unittest.TestCase):
+class APITest(tests.server.base.ServerBaseTest):
     """
     Test API calls by mocking a server.
     """
 
-    _server_process = None
+    def _get_test_info(self, path):
+        with open(path, 'r') as file:
+            data = json.load(file)
 
-    @classmethod
-    def setUpClass(cls):
-        cls._server_process = tests.api.server.start(RESPONSES_DIR)
+        parts = data['endpoint'].split('/')
+        prefix = parts[0]
+        suffix = ''.join(parts[1:])
 
-    @classmethod
-    def tearDownClass(cls):
-        tests.api.server.stop(cls._server_process)
-        cls._server_process = None
+        module_name = '.'.join(['canvas', 'api', prefix, suffix])
 
-    def assertJSONEqual(self, a, b):
-        a_json = json.dumps(a, indent = 4)
-        b_json = json.dumps(b, indent = 4)
+        expected = data['expected']
+        is_error = data.get('error', False)
 
-        super().assertEqual(a, b, FORMAT_STR % (a_json, b_json))
+        arguments = self.get_base_arguments()
+        for key, value in data.get('arguments', {}).items():
+            arguments[key] = value
 
-def _discover_api_tests():
-    for path in sorted(glob.glob(os.path.join(TESTS_DIR, "**", "*.json"), recursive = True)):
+        output_modifier = clean_output_noop
+        if ('output-modifier' in data):
+            modifier_name = data['output-modifier']
+            if (modifier_name not in globals()):
+                raise ValueError("Could not find API '%s' function: '%s'." % ('output-modifier', modifier_name))
+
+            output_modifier = globals()[modifier_name]
+
+        return module_name, arguments, expected, is_error, output_modifier
+
+def _discover_test_cases():
+    for path in sorted(glob.glob(os.path.join(TEST_CASES_DIR, "**", "*.json"), recursive = True)):
         try:
-            _add_api_test(path)
+            _add_test_case(path)
         except Exception as ex:
             raise ValueError("Failed to parse test case '%s'." % (path)) from ex
 
-def _add_api_test(path):
+def _add_test_case(path):
     test_name = 'test_' + os.path.splitext(os.path.basename(path))[0]
-    setattr(APITest, test_name, _get_api_test_method(path))
+    setattr(APITest, test_name, _get_test_method(path))
 
-def get_api_test_info(path):
-    with open(path, 'r') as file:
-        data = json.load(file)
-
-    parts = data['endpoint'].split('/')
-    prefix = parts[0]
-    suffix = ''.join(parts[1:])
-
-    import_module_name = '.'.join(['canvas', 'api', prefix, suffix])
-
-    expected = data['expected']
-    error = data.get('error', False)
-
-    arguments = BASE_ARGUMENTS.copy()
-    for key, value in data.get('arguments', {}).items():
-        arguments[key] = value
-
-    output_modifier = clean_output_noop
-    if ('output-modifier' in data):
-        modifier_name = data['output-modifier']
-        if (modifier_name not in globals()):
-            raise ValueError("Could not find API '%s' function: '%s'." % ('output-modifier', modifier_name))
-
-        output_modifier = globals()[modifier_name]
-
-    return import_module_name, arguments, expected, error, output_modifier
-
-def _get_api_test_method(path):
-    import_module_name, arguments, expected, error, output_modifier = get_api_test_info(path)
-
+def _get_test_method(path):
     def __method(self):
-        api_module = importlib.import_module(import_module_name)
+        module_name, arguments, expected, is_error, output_modifier = self._get_test_info(path)
+
+        module = importlib.import_module(module_name)
 
         try:
-            actual = api_module.request(**arguments)
+            actual = module.request(**arguments)
             if (isinstance(actual, tuple)):
                 actual = list(actual)
 
-            if (error):
+            if (is_error):
                 self.fail("No error was not raised when one was expected ('%s')." % (str(expected)))
         except Exception as ex:
-            if (not error):
+            if (not is_error):
                 raise ex
 
             self.assertEqual(expected, str(ex))
@@ -113,4 +80,4 @@ def _get_api_test_method(path):
 def clean_output_noop(output):
     return output
 
-_discover_api_tests()
+_discover_test_cases()

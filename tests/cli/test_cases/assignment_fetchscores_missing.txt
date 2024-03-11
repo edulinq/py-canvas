@@ -1,0 +1,7 @@
+{
+    "cli": "canvas.cli.assignment.fetch-scores",
+    "arguments": ["ZZZ"],
+    "error": true
+}
+---
+Unable to resolve assignment query 'ZZZ'.

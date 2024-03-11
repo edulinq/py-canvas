@@ -1,0 +1,7 @@
+{
+    "cli": "canvas.cli.gradebook.upload",
+    "arguments": ["__DATA_DIR__(gradebook_upload_too_many_cols.txt)"],
+    "error": true
+}
+---
+Gradebook '__DATA_DIR__(gradebook_upload_too_many_cols.txt)' line 2 has the incorrect number of values. Expecting 3, found 4.

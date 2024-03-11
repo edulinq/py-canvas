@@ -1,0 +1,7 @@
+{
+    "cli": "canvas.cli.gradebook.upload",
+    "arguments": ["__DATA_DIR__(gradebook_upload_dup_user.txt)"],
+    "error": true
+}
+---
+Gradebook '__DATA_DIR__(gradebook_upload_dup_user.txt)' line 3 has a duplicate user 'foo'.

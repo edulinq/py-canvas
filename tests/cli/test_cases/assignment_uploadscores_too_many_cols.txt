@@ -1,0 +1,7 @@
+{
+    "cli": "canvas.cli.assignment.upload-scores",
+    "arguments": ["67890", "__DATA_DIR__(assignment_uploadscores_too_many_cols.txt)"],
+    "error": true
+}
+---
+File '__DATA_DIR__(assignment_uploadscores_too_many_cols.txt)' line 1 has the incorrect number of values. Expecting 2-3, found 4.

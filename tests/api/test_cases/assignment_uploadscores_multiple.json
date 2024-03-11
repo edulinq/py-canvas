@@ -1,0 +1,19 @@
+{
+    "endpoint": "assignment/uploadscores",
+    "arguments": {
+        "assignment": "67890",
+        "users": [
+            "10001",
+            "bburnquist@ucsc.edu"
+        ],
+        "scores": [
+            1,
+            2
+        ],
+        "comments": [
+            null,
+            null
+        ]
+    },
+    "expected": 2
+}

@@ -1,0 +1,7 @@
+{
+    "cli": "canvas.cli.assignment.upload-scores",
+    "arguments": ["ZZZ", "__DATA_DIR__(assignment_uploadscores_base.txt)"],
+    "error": true
+}
+---
+Unable to resolve assignment query 'ZZZ'.

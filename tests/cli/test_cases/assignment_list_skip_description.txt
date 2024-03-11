@@ -1,0 +1,16 @@
+{
+    "cli": "canvas.cli.assignment.list",
+    "arguments": ["--skip-description"]
+}
+---
+Name: Assignment 1
+Canvas ID: 67890
+Points Possible: 1.0
+Published: True
+Due At: 1970-01-01T01:01:01Z
+
+Name: Quiz 1
+Canvas ID: 67891
+Points Possible: 1.0
+Published: False
+Due At: 
