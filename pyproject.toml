@@ -33,8 +33,8 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/eriq-augustine/py-canvas"
-Repository = "https://github.com/eriq-augustine/py-canvas"
+Homepage = "https://github.com/edulinq/py-canvas"
+Repository = "https://github.com/edulinq/py-canvas"
 
 [tool.setuptools.packages.find]
 where = ["."]
