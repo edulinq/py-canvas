@@ -10,7 +10,7 @@ def cli_list(items, keys, table = False, skip_headers = False,
     if (table and (not skip_headers)):
         print("\t".join([key_set[1] for key_set in keys]))
 
-    items = list(sorted(items, key = lambda item: item.get(sort_key)))
+    items = list(sorted(items, key = lambda item: item.get(sort_key, '')))
     for i in range(len(items)):
         item = items[i]
 
