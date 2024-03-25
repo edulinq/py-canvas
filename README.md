@@ -157,9 +157,9 @@ python3 -m canvas.cli.assignment.fetch 'My Assignment'
 To fetch the scores for a specific assignment, use the `canvas.cli.assignment.fetch-scores` tool.
 For example:
 ```
-python3 -m canvas.cli.assignment.fetch-scores --assignment 123456
+python3 -m canvas.cli.assignment.fetch-scores 123456
 
-python3 -m canvas.cli.assignment.fetch-scores --assignment 'My Assignment'
+python3 -m canvas.cli.assignment.fetch-scores 'My Assignment'
 ```
 
 The student's email and score will be written to stdout as a tab-separated row.
