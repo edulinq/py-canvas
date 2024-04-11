@@ -25,11 +25,17 @@ def request(server = None, token = None, course = None, assignment = None,
         assignment = resolved_assignments[0]['id']
 
     if (canvas.api.user.resolve.requires_resolution(users)):
-        resolved_users = canvas.api.user.resolve.fetch_and_resolve_users(server, token, course, users)
-        if (len(resolved_users) == 0):
-            raise ValueError("Unable to resolve all user queries.")
+        resolved_users = canvas.api.user.resolve.fetch_and_resolve_users(server, token, course, users, fill_missing = True)
 
-        users = [resolved_user['id'] for resolved_user in resolved_users]
+        new_users = []
+        for i in range(len(resolved_users)):
+            if (resolved_users[i] is None):
+                new_users.append(None)
+                logging.warning("User '%s' was not resolved to a Canvas user, their grade will not be uploaded." % (users[i]))
+            else:
+                new_users.append(resolved_users[i]['id'])
+
+        users = new_users
 
     return direct_request(server, token, course, assignment, users, scores, comments = comments)
 

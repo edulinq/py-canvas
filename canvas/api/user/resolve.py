@@ -5,20 +5,31 @@ import canvas.api.user.common
 import canvas.api.user.list
 
 def fetch_and_resolve_users(server, token, course, user_queries,
-        keys = canvas.api.user.common.DEFAULT_KEYS, include_role = False):
+        keys = canvas.api.user.common.DEFAULT_KEYS, include_role = False,
+        fill_missing = False):
     course_users = canvas.api.user.list.request(server = server, token = token,
             course = course, include_role = include_role, keys = None)
 
-    users = resolve_users(user_queries, course_users)
+    users = resolve_users(user_queries, course_users, fill_missing = fill_missing)
 
     if (keys is None):
         return users
 
-    return [{key: user[key] for key in keys} for user in users]
+    result = []
+    for user in users:
+        if (user is None):
+            result.append(None)
+        else:
+            result.append({key: user[key] for key in keys})
 
-def resolve_users(user_queries, course_users, id_field = 'id'):
+    return result
+
+def resolve_users(user_queries, course_users, id_field = 'id', fill_missing = False):
     """
-    Try to match each user query to an acutal user.
+    Try to match each user query to an actual user.
+
+    If |fill_missing| is True, then missing (unresolved) users will be replaced with a None.
+    This means that the returned results will always be the same size as the input queries.
     """
 
     users = []
@@ -77,9 +88,15 @@ def resolve_users(user_queries, course_users, id_field = 'id'):
 
         if (len(found_users) == 0):
             logging.warning("No user found that matches user query: '%s'." % (query))
+
+            if (fill_missing):
+                users.append(None)
         elif (len(found_users) > 1):
             labels = ["%s (%s)" % (str(user.get('email', '')), str(user.get('id', ''))) for user in found_users.values()]
             logging.warning("User query ('%s') matches multiple users: '%s'." % (query, labels))
+
+            if (fill_missing):
+                users.append(None)
         else:
             users.append(list(found_users.values())[0])
 

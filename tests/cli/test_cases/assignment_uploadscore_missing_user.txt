@@ -4,8 +4,7 @@
         "67890",
         "ZZZ",
         "1"
-    ],
-    "error": true
+    ]
 }
 ---
-Unable to resolve all user queries.
+Uploaded 0 Scores

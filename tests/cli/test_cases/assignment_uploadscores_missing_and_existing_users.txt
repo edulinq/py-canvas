@@ -1,0 +1,6 @@
+{
+    "cli": "canvas.cli.assignment.upload-scores",
+    "arguments": ["67890", "__DATA_DIR__(assignment_uploadscores_missing_and_existing_users.txt)"]
+}
+---
+Uploaded 1 Scores
