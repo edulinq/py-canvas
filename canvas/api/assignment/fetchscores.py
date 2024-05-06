@@ -26,7 +26,7 @@ def request(server = None, token = None, course = None, assignment = None,
     course = canvas.api.common.validate_param(course, 'course', param_type = int)
     assignment = canvas.api.common.validate_param(assignment, 'assignment')
 
-    logging.info("Fetching scores for assignement ('%s' (course '%s')) from '%s'." % (assignment, str(course), server))
+    logging.info("Fetching information for assignement ('%s' (course '%s')) from '%s'." % (assignment, str(course), server))
 
     resolved_assignments = canvas.api.assignment.fetch.request(server = server, token = token, course = course,
             assignments = [assignment], keys = assignment_keys)
@@ -55,8 +55,8 @@ def request(server = None, token = None, course = None, assignment = None,
             if (user_id not in all_users):
                 continue
 
-            item = {key: item[key] for key in keys}
-            user = {key: all_users[user_id][key] for key in user_keys}
+            item = {key: item.get(key, None) for key in keys}
+            user = {key: all_users[user_id].get(key, None) for key in user_keys}
 
             item['user'] = user
             item['assignment'] = assignment_info

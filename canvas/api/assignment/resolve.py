@@ -14,7 +14,7 @@ def fetch_and_resolve_assignments(server, token, course, assignment_queries,
     if (keys is None):
         return assignments
 
-    return [{key: assignment[key] for key in keys} for assignment in assignments]
+    return [{key: assignment.get(key, None) for key in keys} for assignment in assignments]
 
 def resolve_assignments(assignment_queries, course_assignments, id_field = 'id'):
     """

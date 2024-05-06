@@ -20,7 +20,7 @@ def list_assignments(url, headers, keys):
 
         for new_assignment in new_assignments:
             if (keys is not None):
-                new_assignment = {key: new_assignment[key] for key in keys}
+                new_assignment = {key: new_assignment.get(key, None) for key in keys}
 
             output.append(new_assignment)
 

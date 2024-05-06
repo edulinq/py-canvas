@@ -20,7 +20,7 @@ def fetch_and_resolve_users(server, token, course, user_queries,
         if (user is None):
             result.append(None)
         else:
-            result.append({key: user[key] for key in keys})
+            result.append({key: user.get(key, None) for key in keys})
 
     return result
 
