@@ -80,4 +80,10 @@ def _get_test_method(path):
 def clean_output_noop(output):
     return output
 
+def clean_output_fetch_submission_files(output):
+    # Replace the temp path with a known one.
+    output[0] = '/tmp/canvas-submission-files-ABC-123'
+
+    return output
+
 _discover_test_cases()

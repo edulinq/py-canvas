@@ -1,0 +1,11 @@
+{
+    "endpoint": "assignment/fetchsubmissionfiles",
+    "arguments": {
+        "assignment": "Assignment 3"
+    },
+    "output-modifier": "clean_output_fetch_submission_files",
+    "expected": [
+        "/tmp/canvas-submission-files-ABC-123",
+        3
+    ]
+}

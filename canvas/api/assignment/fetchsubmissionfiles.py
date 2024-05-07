@@ -110,6 +110,7 @@ def _download_files(temp_dir, file_targets):
             path = os.path.join(user_dir, filename)
 
             try:
+                logging.debug("Downloading file for student '%s': '%s'." % (email, filename))
                 response = requests.get(url)
                 response.raise_for_status()
 

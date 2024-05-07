@@ -5,4 +5,5 @@
 ---
 name	canvas_id	points_possible	published	due_at	description
 Assignment 1	67890	1.0	True	1970-01-01T01:01:01Z	The first assignment.
+Assignment 3	67892	1.0	True	1970-01-01T01:01:01Z	The third assignment (has submissions).
 Quiz 1	67891	1.0	False		

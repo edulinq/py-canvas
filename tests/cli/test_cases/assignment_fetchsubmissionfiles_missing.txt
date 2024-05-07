@@ -1,0 +1,10 @@
+{
+    "cli": "canvas.cli.assignment.fetch-submission-files",
+    "arguments": [
+        "ZZZ",
+        "--out-dir", "__TEMP_DIR__()"
+    ],
+    "error": true
+}
+---
+Unable to resolve assignment query 'ZZZ'.

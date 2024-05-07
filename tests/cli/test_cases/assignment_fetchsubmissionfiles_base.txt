@@ -1,0 +1,9 @@
+{
+    "cli": "canvas.cli.assignment.fetch-submission-files",
+    "arguments": [
+        "67892",
+        "--out-dir", "__TEMP_DIR__()"
+    ]
+}
+---
+Downloaded 3 files to '__TEMP_DIR__()'.

@@ -16,6 +16,7 @@ Documentation Table of Contents:
     - [List Assignments](#list-assignments)
     - [Fetch a Single Assignment](#fetch-a-single-assignment)
     - [Fetch Assignment Scores](#fetch-assignment-scores)
+    - [Fetch Assignment Submission Files](#fetch-assignment-submission-files)
     - [Upload Assignment Scores](#upload-assignment-scores)
     - [Upload Single Assignment Score](#upload-single-assignment-score)
     - [Fetch Gradebook](#fetch-gradebook)
@@ -151,6 +152,7 @@ For example:
 ```
 python3 -m canvas.cli.assignment.fetch 123456
 
+# Or
 python3 -m canvas.cli.assignment.fetch 'My Assignment'
 ```
 
@@ -161,10 +163,27 @@ For example:
 ```
 python3 -m canvas.cli.assignment.fetch-scores 123456
 
+# Or
 python3 -m canvas.cli.assignment.fetch-scores 'My Assignment'
 ```
 
 The student's email and score will be written to stdout as a tab-separated row.
+
+### Fetch Assignment Submission Files
+
+To fetch the files students have submitted for an assignment, use the `canvas.cli.assignment.fetch-submission-files` tool.
+For example:
+```
+python3 -m canvas.cli.assignment.fetch-submission-files 123456
+
+# Or
+python3 -m canvas.cli.assignment.fetch-submission-files 'My Assignment'
+```
+
+Only assignment with a submission type of "Online - Text Entry" or "Online - File Uploads" will be downloaded.
+
+By default, files will be written to the `out` directory.
+This can be controlled with the `--out-dir` argument.
 
 ### Upload Assignment Scores
 

@@ -29,6 +29,17 @@
                 "position": 3,
                 "description": null,
                 "count": 2
+            },
+            "67892": {
+                "id": "67892",
+                "name": "Assignment 3",
+                "points_possible": 1.0,
+                "published": true,
+                "due_at": "1970-01-01T01:01:01Z",
+                "assignment_group_id": "200001",
+                "position": 2,
+                "description": "The third assignment (has submissions).",
+                "count": 0
             }
         },
         {

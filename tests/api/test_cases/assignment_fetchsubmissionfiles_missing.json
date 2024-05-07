@@ -1,0 +1,8 @@
+{
+    "endpoint": "assignment/fetchsubmissionfiles",
+    "arguments": {
+        "assignment": "ZZZ"
+    },
+    "error": true,
+    "expected": "Unable to resolve assignment query 'ZZZ'."
+}

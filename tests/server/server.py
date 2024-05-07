@@ -10,7 +10,10 @@ import urllib.parse
 THIS_DIR = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
 RESPONSES_DIR = os.path.join(THIS_DIR, "responses")
 
-PORT = 12345
+# Just a random port that is unlikely to be in use.
+# Tests will sometimes need to point to a URL in their response,
+# so this number will need to be static unless response infrastructure is updated.
+PORT = 53179
 ENCODING = 'utf8'
 
 SLEEP_TIME_SEC = 0.2
