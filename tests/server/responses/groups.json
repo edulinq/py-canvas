@@ -1,0 +1,33 @@
+{
+    "url": "/api/v1/courses/12345/group_categories",
+    "body": [
+        {
+            "id": 30001,
+            "name": "Group 1 - No Leader",
+            "role": null,
+            "self_signup": null,
+            "group_limit": null,
+            "auto_leader": null,
+            "created_at": "1970-01-01T01:01:01Z",
+            "context_type": "Course",
+            "course_id": 12345,
+            "protected": false,
+            "allows_multiple_memberships": false,
+            "is_member": false
+        },
+        {
+            "id": 30002,
+            "name": "Group 2 - Leader",
+            "role": null,
+            "self_signup": null,
+            "group_limit": null,
+            "auto_leader": "random",
+            "created_at": "1970-01-01T01:01:01Z",
+            "context_type": "Course",
+            "course_id": 12345,
+            "protected": false,
+            "allows_multiple_memberships": false,
+            "is_member": false
+        }
+    ]
+}

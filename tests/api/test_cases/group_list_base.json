@@ -1,0 +1,15 @@
+{
+    "endpoint": "group/list",
+    "arguments": {
+    },
+    "expected": [
+        {
+            "id": 30001,
+            "name": "Group 1 - No Leader"
+        },
+        {
+            "id": 30002,
+            "name": "Group 2 - Leader"
+        }
+    ]
+}

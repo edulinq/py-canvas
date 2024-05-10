@@ -1,0 +1,9 @@
+{
+    "cli": "canvas.cli.group.list"
+}
+---
+Name: Group 1 - No Leader
+Canvas ID: 30001
+
+Name: Group 2 - Leader
+Canvas ID: 30002

@@ -45,6 +45,23 @@ def make_get_request(url, headers, raise_for_status = True,
 
     return response, next_url, body
 
+# Repeatedly call make_get_request() (using a JSON body and next link) until there are no more results.
+# Collect the results and filter using the provided keys.
+def make_get_request_list(url, headers,
+        keys = None, missing_value = None):
+    output = []
+
+    while (url is not None):
+        _, url, new_results = make_get_request(url, headers)
+
+        for new_result in new_results:
+            if (keys is not None):
+                new_result = {key: new_result.get(key, missing_value) for key in keys}
+
+            output.append(new_result)
+
+    return output
+
 # Return: (response, body)
 def make_post(url, headers, data,
         raise_for_status = True, json_body = True):
