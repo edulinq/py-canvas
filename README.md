@@ -8,8 +8,9 @@ Documentation Table of Contents:
  - [Installation](#installation)
  - [CLI Configuration](#cli-configuration)
  - [Usage Notes](#usage-notes)
-    - [User Queries](#user-queries)
-    - [Assignment Queries](#assignment-queries)
+    - [Users](#users)
+    - [Assignments](#assignments)
+    - [Groups](#groups)
  - [CLI Tools](#cli-tools)
     - [List Course Users](#list-course-users)
     - [Fetch a Single User](#fetch-a-single-user)
@@ -21,6 +22,7 @@ Documentation Table of Contents:
     - [Upload Single Assignment Score](#upload-single-assignment-score)
     - [Fetch Gradebook](#fetch-gradebook)
     - [Upload Gradebook](#upload-gradebook)
+    - [List Groups](#list-groups)
 
 ## Installation
 
@@ -79,7 +81,7 @@ config files (and thus will not need to be specified).
 
 ## Usage Notes
 
-### User Queries
+### Users
 
 When a user is required, tools and API functions accept a "user query" (unless specified).
 A user query is any object that can be used to uniquely identify a user.
@@ -94,7 +96,7 @@ It is recommended to use an email or Canvas ID as a user query.
 Resolving a user query that is not a Canvas ID will take longer,
 because a list of users must be fetched from Canvas.
 
-### Assignment Queries
+### Assignments
 
 When an assignment is required, tools and API functions accept an "assignment query" (unless specified).
 An assignment query is any object that can be used to uniquely identify an assignment.
@@ -106,6 +108,17 @@ Valid assignment queries are:
 Assignment queries must be unambiguous within the pool of possible assignments (e.g., assignments in a course).
 Resolving an assignment query that is not a Canvas ID will take longer,
 because a list of assignments must be fetched from Canvas.
+
+### Groups
+
+When a group is required, tools and API functions accept a "group query" (unless specified).
+A group query is any object that can be used to uniquely identify a group.
+Valid group queries are:
+ - Canvas Group ID (as an integer or string of digits)
+ - Full Name
+ - "name (id)" where "name" is a full group name and "id" is a Canvas ID
+
+Group queries must be unambiguous within the pool of possible groups (e.g., groups in a course).
 
 ## CLI Tools
 
@@ -270,3 +283,19 @@ user	98765	Assignment 2
 1001	1	2
 alice@uni.edu	3	
 ```
+
+### List Groups
+
+Groups in a course can be listed using the `canvas.cli.group.list` tool.
+For example:
+```
+python3 -m canvas.cli.group.list
+```
+
+To list each group as a tab-separated row, use the `-t` / `--table` option:
+```
+python3 -m canvas.cli.group.list --table
+```
+
+Note that this lists the groups themselves,
+not group membership (users within a group).
