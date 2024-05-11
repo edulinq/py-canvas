@@ -1,5 +1,5 @@
 {
-    "cli": "canvas.cli.group.list"
+    "cli": "canvas.cli.group.list-groupings"
 }
 ---
 Name: Group 1 - No Leader

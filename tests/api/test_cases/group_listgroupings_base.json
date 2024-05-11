@@ -1,5 +1,5 @@
 {
-    "endpoint": "group/list",
+    "endpoint": "group/listgroupings",
     "arguments": {
     },
     "expected": [

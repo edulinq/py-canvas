@@ -1,5 +1,5 @@
 {
-    "cli": "canvas.cli.group.list",
+    "cli": "canvas.cli.group.list-groupings",
     "arguments": ["--table"]
 }
 ---

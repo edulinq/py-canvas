@@ -10,7 +10,7 @@ Documentation Table of Contents:
  - [Usage Notes](#usage-notes)
     - [Users](#users)
     - [Assignments](#assignments)
-    - [Groups](#groups)
+    - [Groupings and Groups](#groupings-and-groups)
  - [CLI Tools](#cli-tools)
     - [List Course Users](#list-course-users)
     - [Fetch a Single User](#fetch-a-single-user)
@@ -22,7 +22,7 @@ Documentation Table of Contents:
     - [Upload Single Assignment Score](#upload-single-assignment-score)
     - [Fetch Gradebook](#fetch-gradebook)
     - [Upload Gradebook](#upload-gradebook)
-    - [List Groups](#list-groups)
+    - [List Groupings](#list-groupings)
 
 ## Installation
 
@@ -109,9 +109,16 @@ Assignment queries must be unambiguous within the pool of possible assignments (
 Resolving an assignment query that is not a Canvas ID will take longer,
 because a list of assignments must be fetched from Canvas.
 
-### Groups
+### Groupings and Groups
+
+A "grouping", also called a "group set" or "group category" in Canvas,
+is a set of groups created for a specific purpose (like for a specific assignment).
+A grouping has a name and contains groups.
+A "group" is a collection of users (usually students).
+The hierarchy goes "grouping" -> "group" -> "user".
 
 When a group is required, tools and API functions accept a "group query" (unless specified).
+(All information about group queries also applies to grouping queries.)
 A group query is any object that can be used to uniquely identify a group.
 Valid group queries are:
  - Canvas Group ID (as an integer or string of digits)
@@ -284,18 +291,18 @@ user	98765	Assignment 2
 alice@uni.edu	3	
 ```
 
-### List Groups
+### List Groupings
 
 Groups in a course can be listed using the `canvas.cli.group.list` tool.
 For example:
 ```
-python3 -m canvas.cli.group.list
+python3 -m canvas.cli.group.list-groupings
 ```
 
 To list each group as a tab-separated row, use the `-t` / `--table` option:
 ```
-python3 -m canvas.cli.group.list --table
+python3 -m canvas.cli.group.list-groupings --table
 ```
 
-Note that this lists the groups themselves,
-not group membership (users within a group).
+Note that this lists the groupingss themselves,
+not groups in the groupings or the users in those groups.
