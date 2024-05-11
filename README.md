@@ -150,6 +150,9 @@ To fetch information about a single course user, use the `canvas.cli.user.fetch`
 For example:
 ```
 python3 -m canvas.cli.user.fetch 12345
+
+# Or
+python3 -m canvas.cli.user.fetch alice@uni.edu
 ```
 
 ### List Assignments
@@ -293,16 +296,32 @@ alice@uni.edu	3
 
 ### List Groupings
 
-Groups in a course can be listed using the `canvas.cli.group.list` tool.
+Groups in a course can be listed using the `canvas.cli.group.list-groupings` tool.
 For example:
 ```
 python3 -m canvas.cli.group.list-groupings
 ```
 
-To list each group as a tab-separated row, use the `-t` / `--table` option:
+To list each grouping as a tab-separated row, use the `-t` / `--table` option:
 ```
 python3 -m canvas.cli.group.list-groupings --table
 ```
 
-Note that this lists the groupingss themselves,
+Note that this lists the groupings themselves,
 not groups in the groupings or the users in those groups.
+
+### List Groups in a Grouping
+
+To list the groups within a grouping, use the `canvas.cli.group.list-groups` tool.
+For example:
+```
+python3 -m canvas.cli.group.list-groups 12345
+
+# Or
+python3 -m canvas.cli.group.list-groups 'My Grouping'
+```
+
+To list each group as a tab-separated row, use the `-t` / `--table` option:
+```
+python3 -m canvas.cli.group.list-groups --table 12345
+```

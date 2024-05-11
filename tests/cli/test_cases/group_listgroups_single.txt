@@ -1,0 +1,7 @@
+{
+    "cli": "canvas.cli.group.list-groups",
+    "arguments": ["30002"]
+}
+---
+Name: Group 2 - Leader 1
+Canvas ID: 300020

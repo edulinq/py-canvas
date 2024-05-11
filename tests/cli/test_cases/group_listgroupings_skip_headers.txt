@@ -1,0 +1,10 @@
+{
+    "cli": "canvas.cli.group.list-groupings",
+    "arguments": [
+        "--table",
+        "--skip-headers"
+    ]
+}
+---
+Group 1 - No Leader	30001
+Group 2 - Leader	30002

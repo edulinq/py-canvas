@@ -1,0 +1,11 @@
+{
+    "cli": "canvas.cli.group.list-groups",
+    "arguments": [
+        "30001",
+        "--table"
+    ]
+}
+---
+name	canvas_id
+Group 1 - No Leader 1	300010
+Group 1 - No Leader 2	300011

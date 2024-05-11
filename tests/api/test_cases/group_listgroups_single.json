@@ -1,0 +1,12 @@
+{
+    "endpoint": "group/listgroups",
+    "arguments": {
+        "grouping": "30002"
+    },
+    "expected": [
+        {
+            "id": "300020",
+            "name": "Group 2 - Leader 1"
+        }
+    ]
+}
