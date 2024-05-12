@@ -49,7 +49,11 @@ def _load_responses():
         with open(path, 'r') as file:
             data = json.load(file)
 
-        Handler._static_responses[data['url']] = data['body']
+        body = data['body']
+        if (not data.get('text', False)):
+            body = json.dumps(body)
+
+        Handler._static_responses[data['url']] = body
 
 class Handler(http.server.BaseHTTPRequestHandler):
     _static_responses = {}
@@ -64,8 +68,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
         code = http.HTTPStatus.OK
         headers = {}
 
-        response = self._get_response(self.path)
-        payload = json.dumps(response)
+        payload = self._get_response(self.path)
 
         self.send_response(code)
 

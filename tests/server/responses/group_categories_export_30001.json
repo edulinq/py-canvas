@@ -1,0 +1,5 @@
+{
+    "url": "/api/v1/group_categories/30001/export",
+    "text": true,
+    "body": "name,canvas_user_id,user_id,login_id,sections,group_name,canvas_group_id,group_id\n\"Alvarez, Alice\",10001,1000001,aalvarez@ucsc.edu,Canvas Test Class,Group 1 - No Leader 1,300010,\n\"Burnquist, Bob\",10002,1000002,bburnquist@ucsc.edu,Canvas Test Class,Group 1 - No Leader 2,300011,"
+}

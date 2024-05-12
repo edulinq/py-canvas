@@ -1,0 +1,12 @@
+{
+    "cli": "canvas.cli.group.list-grouping-membership",
+    "arguments": ["30001"]
+}
+---
+Group Name: Group 1 - No Leader 1
+Canvas Group ID: 300010
+Email: aalvarez@ucsc.edu
+
+Group Name: Group 1 - No Leader 2
+Canvas Group ID: 300011
+Email: bburnquist@ucsc.edu

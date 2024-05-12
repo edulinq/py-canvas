@@ -1,0 +1,5 @@
+{
+    "cli": "canvas.cli.group.list-grouping-membership",
+    "arguments": ["ZZZ"]
+}
+---

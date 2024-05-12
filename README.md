@@ -11,6 +11,7 @@ Documentation Table of Contents:
     - [Users](#users)
     - [Assignments](#assignments)
     - [Groupings and Groups](#groupings-and-groups)
+    - [Tables](#tables)
  - [CLI Tools](#cli-tools)
     - [List Course Users](#list-course-users)
     - [Fetch a Single User](#fetch-a-single-user)
@@ -23,6 +24,8 @@ Documentation Table of Contents:
     - [Fetch Gradebook](#fetch-gradebook)
     - [Upload Gradebook](#upload-gradebook)
     - [List Groupings](#list-groupings)
+    - [List Groups in a Grouping](#list-groups-in-a-grouping)
+    - [List Membership in a Grouping](#list-membership-in-a-grouping)
 
 ## Installation
 
@@ -127,6 +130,12 @@ Valid group queries are:
 
 Group queries must be unambiguous within the pool of possible groups (e.g., groups in a course).
 
+### Tables
+
+Most commands that list results can also output results into a tab-separated table (on stdout)
+using the `-t` / `--table` option.
+To skip the header row, you can use the `--skip-headers` option.
+
 ## CLI Tools
 
 All CLI tools can be invoked with `-h` / `--help` to see the full usage and all options.
@@ -137,11 +146,6 @@ Course users can be listed using the `canvas.cli.user.list` tool.
 For example:
 ```
 python3 -m canvas.cli.user.list
-```
-
-To list each user as a tab-separated row, use the `-t` / `--table` option:
-```
-python3 -m canvas.cli.user.list --table
 ```
 
 ### Fetch a Single User
@@ -161,11 +165,6 @@ Course assignments can be listed using the `canvas.cli.assignment.list` tool.
 For example:
 ```
 python3 -m canvas.cli.assignment.list
-```
-
-To list each assignment as a tab-separated row, use the `-t` / `--table` option:
-```
-python3 -m canvas.cli.assignment.list --table
 ```
 
 ### Fetch a Single Assignment
@@ -302,11 +301,6 @@ For example:
 python3 -m canvas.cli.group.list-groupings
 ```
 
-To list each grouping as a tab-separated row, use the `-t` / `--table` option:
-```
-python3 -m canvas.cli.group.list-groupings --table
-```
-
 Note that this lists the groupings themselves,
 not groups in the groupings or the users in those groups.
 
@@ -321,7 +315,13 @@ python3 -m canvas.cli.group.list-groups 12345
 python3 -m canvas.cli.group.list-groups 'My Grouping'
 ```
 
-To list each group as a tab-separated row, use the `-t` / `--table` option:
+### List Membership in a Grouping
+
+To list the users inside each group within a grouping, use the `canvas.cli.group.list-grouping-membership` tool.
+For example:
 ```
-python3 -m canvas.cli.group.list-groups --table 12345
+python3 -m canvas.cli.group.list-grouping-membership 12345
+
+# Or
+python3 -m canvas.cli.group.list-grouping-membership 'My Grouping'
 ```

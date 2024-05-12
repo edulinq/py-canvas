@@ -1,0 +1,18 @@
+{
+    "endpoint": "group/listgroupingmembership",
+    "arguments": {
+        "grouping": "30002"
+    },
+    "expected": [
+        {
+            "canvas_group_id": "300020",
+            "group_name": "Group 2 - Leader 1",
+            "email": "aalvarez@ucsc.edu"
+        },
+        {
+            "canvas_group_id": "300020",
+            "group_name": "Group 2 - Leader 1",
+            "email": "bburnquist@ucsc.edu"
+        }
+    ]
+}

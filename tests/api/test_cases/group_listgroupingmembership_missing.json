@@ -1,0 +1,7 @@
+{
+    "endpoint": "group/listgroupingmembership",
+    "arguments": {
+        "grouping": "ZZZ"
+    },
+    "expected": []
+}
