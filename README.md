@@ -24,7 +24,7 @@ Documentation Table of Contents:
     - [Fetch Gradebook](#fetch-gradebook)
     - [Upload Gradebook](#upload-gradebook)
     - [List Groupings](#list-groupings)
-    - [List Groups in a Grouping](#list-groups-in-a-grouping)
+    - [List Groups](#list-groups)
     - [List Membership in a Grouping](#list-membership-in-a-grouping)
 
 ## Installation
@@ -304,9 +304,15 @@ python3 -m canvas.cli.group.list-groupings
 Note that this lists the groupings themselves,
 not groups in the groupings or the users in those groups.
 
-### List Groups in a Grouping
+### List Groups
 
-To list the groups within a grouping, use the `canvas.cli.group.list-groups` tool.
+To list the groups (not groupings) in a course, use the `canvas.cli.group.list-groups` tool.
+For example:
+```
+python3 -m canvas.cli.group.list-groups
+```
+
+To limit the results based on grouping, provide a query for that grouping.
 For example:
 ```
 python3 -m canvas.cli.group.list-groups 12345

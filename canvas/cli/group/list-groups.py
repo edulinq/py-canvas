@@ -35,8 +35,9 @@ def _modify_parser(parser):
         help = 'Skip headers when outputting as a table (default: %(default)s).')
 
     parser.add_argument('grouping',
-        action = 'store', type = str,
-        help = 'The query for the grouping (aka "group set" or "group category") to list.')
+        action = 'store', type = str, nargs = '?', default = None,
+        help = ('The optional query for the grouping (aka "group set" or "group category") to list.'
+                + ' If not provided, all groups in the course will be listed.'))
 
     return parser
 
