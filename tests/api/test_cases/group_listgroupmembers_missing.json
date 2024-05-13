@@ -1,0 +1,8 @@
+{
+    "endpoint": "group/listgroupmembers",
+    "arguments": {
+        "group": "ZZZ"
+    },
+    "expected": [
+    ]
+}

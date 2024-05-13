@@ -1,0 +1,16 @@
+{
+    "url": "/api/v1/groups/300010/users",
+    "body": [
+        {
+            "id": "10001",
+            "name": "Alice Alvarez",
+            "created_at": "1970-01-01T01:01:01Z",
+            "sortable_name": "Alvarez, Alice",
+            "short_name": "Alice Alvarez",
+            "sis_user_id": "1000001",
+            "integration_id": null,
+            "root_account": "canvas.ucsc.edu",
+            "login_id": "aalvarez@ucsc.edu"
+        }
+    ]
+}

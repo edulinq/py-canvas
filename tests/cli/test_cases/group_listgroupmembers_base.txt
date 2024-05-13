@@ -1,0 +1,14 @@
+{
+    "cli": "canvas.cli.group.list-group-members",
+    "arguments": ["300020"]
+}
+---
+Email: aalvarez@ucsc.edu
+Name: Alice Alvarez
+Canvas ID: 10001
+Student ID: 1000001
+
+Email: bburnquist@ucsc.edu
+Name: Bob Burnquist
+Canvas ID: 10002
+Student ID: 1000002

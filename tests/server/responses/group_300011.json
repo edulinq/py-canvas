@@ -1,0 +1,16 @@
+{
+    "url": "/api/v1/groups/300011/users",
+    "body": [
+        {
+            "id": "10002",
+            "name": "Bob Burnquist",
+            "created_at": "1970-01-01T01:01:01Z",
+            "sortable_name": "Burnquist, Bob",
+            "short_name": "Bob Burnquist",
+            "sis_user_id": "1000002",
+            "integration_id": null,
+            "root_account": "canvas.ucsc.edu",
+            "login_id": "bburnquist@ucsc.edu"
+        }
+    ]
+}

@@ -26,6 +26,7 @@ Documentation Table of Contents:
     - [List Groupings](#list-groupings)
     - [List Groups](#list-groups)
     - [List Membership in a Grouping](#list-membership-in-a-grouping)
+    - [List Members in a Group](#list-members-in-a-group)
 
 ## Installation
 
@@ -330,4 +331,15 @@ python3 -m canvas.cli.group.list-grouping-membership 12345
 
 # Or
 python3 -m canvas.cli.group.list-grouping-membership 'My Grouping'
+```
+
+### List Members in a Group
+
+To list the users inside a specific group (not a grouping), use the `canvas.cli.group.list-group-members` tool.
+For example:
+```
+python3 -m canvas.cli.group.list-group-members 12345
+
+# Or
+python3 -m canvas.cli.group.list-group-members 'My Group'
 ```

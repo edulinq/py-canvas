@@ -1,0 +1,20 @@
+{
+    "endpoint": "group/listgroupmembers",
+    "arguments": {
+        "group": "Group 2 - Leader 1 (300020)"
+    },
+    "expected": [
+        {
+            "id": "10001",
+            "login_id": "aalvarez@ucsc.edu",
+            "sis_user_id": "1000001",
+            "name": "Alice Alvarez"
+        },
+        {
+            "id": "10002",
+            "login_id": "bburnquist@ucsc.edu",
+            "sis_user_id": "1000002",
+            "name": "Bob Burnquist"
+        }
+    ]
+}
