@@ -9,14 +9,13 @@ requires = [
 
 [project]
 name = "edq-canvas"
-version = "0.0.6"
 description = "A suite of tools and Python interface for Instructure's Canvas LMS."
 readme = "README.md"
 requires-python = ">=3.8"
 license = {file = "LICENSE"}
 
 authors = [
-    {name = "Eriq Augustine", email = "eaugusti@ucsc.edu"},
+    {name = "Eriq Augustine", email = "eriq@edulinq.org"},
 ]
 
 keywords = ['education', 'lms', 'canvas', 'api']
@@ -26,11 +25,16 @@ classifiers = [
     'Programming Language :: Python :: 3.8',
 ]
 
-dependencies = [
-    "json5>=0.9.14",
-    "platformdirs>=3.10.0",
-    "requests>=2.31.0",
+dynamic = [
+    "version",
+    "dependencies",
+    "optional-dependencies",
 ]
+
+[tool.setuptools.dynamic]
+version = {attr = "canvas.__version__"}
+dependencies = {file = ["requirements.txt"]}
+optional-dependencies = {dev = {file = ["requirements-dev.txt"]}}
 
 [project.urls]
 Homepage = "https://github.com/edulinq/py-canvas"
