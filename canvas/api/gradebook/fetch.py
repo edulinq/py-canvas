@@ -2,6 +2,7 @@ import logging
 
 import canvas.api.assignment.list
 import canvas.api.common
+import canvas.api.user.common
 import canvas.api.user.list
 import canvas.api.user.resolve
 
@@ -14,12 +15,15 @@ BASE_ENDPOINT = "/api/v1/courses/{course}/students/submissions?per_page={page_si
 #   {assignment_id: {id: <id>, name: <name>, assignment_group_id: <id>, count: <int>, position: <int>}, ...},
 #   {user_email: {assignment_id: score, ...}, ...},
 # )
-def request(server = None, token = None, course = None, user_queries = [], **kwargs):
+def request(server = None, token = None, course = None,
+        user_queries = [],
+        include_computed_scores = False,
+        **kwargs):
     server = canvas.api.common.validate_param(server, 'server')
     token = canvas.api.common.validate_param(token, 'token')
     course = canvas.api.common.validate_param(course, 'course', param_type = int)
 
-    users = _fetch_users(server, token, course, user_queries)
+    users = _fetch_users(server, token, course, user_queries, include_computed_scores)
     assignments = _fetch_assignments(server, token, course)
 
     logging.info("Fetching gradebook for course '%s' from '%s'." % (str(course), server))
@@ -33,6 +37,7 @@ def request(server = None, token = None, course = None, user_queries = [], **kwa
         for user in users.values():
             url += "&student_ids[]=%s" % (user['id'])
 
+    # {user_email: {assignment_id: score, ...}, ...}
     grades = {}
 
     while (url is not None):
@@ -69,13 +74,26 @@ def request(server = None, token = None, course = None, user_queries = [], **kwa
 
             grades[user_email][assignment_id] = score
 
+    # Add computed scores.
+    if (include_computed_scores):
+        assignments, grades = _add_computed_scores(users, assignments, grades)
+
     return assignments, grades
 
-def _fetch_users(server, token, course, user_queries):
+def _fetch_users(server, token, course, user_queries, include_computed_scores):
+    extra_args = {}
+    if (include_computed_scores):
+        extra_args = {
+            'keys': None,
+            'include_role': True,
+        }
+
     if (len(user_queries) == 0):
-        users = canvas.api.user.list.request(server = server, token = token, course = course)
+        users = canvas.api.user.list.request(server = server, token = token, course = course,
+            keys = None, include_role = True)
     else:
-        users = canvas.api.user.resolve.fetch_and_resolve_users(server, token, course, user_queries)
+        users = canvas.api.user.resolve.fetch_and_resolve_users(server, token, course, user_queries,
+            keys = None, include_role = True)
 
     if (len(users) == 0):
         raise ValueError("Could not find any users for the gradebook.")
@@ -88,3 +106,32 @@ def _fetch_assignments(server, token, course):
         assignment['count'] = 0
 
     return {assignment['id']: assignment for assignment in assignments}
+
+def _add_computed_scores(users, assignments, grades):
+    for i in range(len(canvas.api.user.common.COMPUTED_SCORE_KEYS)):
+        key = canvas.api.user.common.COMPUTED_SCORE_KEYS[i]
+        assignment_id = f"_computed_{i + 1}_"
+
+        assignments[assignment_id] = {
+            'id': f"{assignment_id}",
+            'name': key,
+            'assignment_group_id': '999999999',
+            'count': 0,
+            'position': 999999990 + i,
+        }
+
+    for user in users.values():
+        if (user['email'] not in grades):
+            continue
+
+        for i in range(len(canvas.api.user.common.COMPUTED_SCORE_KEYS)):
+            key = canvas.api.user.common.COMPUTED_SCORE_KEYS[i]
+            score = user.get(key, None)
+
+            assignment_id = f"_computed_{i + 1}_"
+            grades[user['email']][assignment_id] = score
+
+            if (score is not None):
+                assignments[assignment_id]['count'] += 1
+
+    return assignments, grades

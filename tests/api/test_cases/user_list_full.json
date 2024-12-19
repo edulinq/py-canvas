@@ -16,6 +16,10 @@
             "root_account": "canvas.ucsc.edu",
             "login_id": "aalvarez@ucsc.edu",
             "enrollment": "StudentEnrollment",
+            "current_score": 85.45,
+            "final_score": 32.75,
+            "unposted_current_score": 85.45,
+            "unposted_final_score": 32.75,
             "enrollments": [
                 {
                     "id": "3000001",
@@ -108,6 +112,10 @@
             "root_account": "canvas.ucsc.edu",
             "login_id": "bburnquist@ucsc.edu",
             "enrollment": "StudentEnrollment",
+            "current_score": 91.25,
+            "final_score": 25.25,
+            "unposted_current_score": 91.25,
+            "unposted_final_score": 25.25,
             "enrollments": [
                 {
                     "id": "3000003",

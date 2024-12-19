@@ -272,6 +272,11 @@ For example, you can write a gradebook with all assignments and users to `grades
 python3 -m canvas.cli.gradebook.fetch --include-empty-assignments --include-empty-users > grades.txt
 ```
 
+To include scores that are computed by Canvas (such as the final score), use the `--include-computed-scores` flag:
+```
+python3 -m canvas.cli.gradebook.fetch --include-computed-scores
+```
+
 ### Upload Gradebook
 
 To upload a gradebook, use the `canvas.cli.gradebook.upload` tool:

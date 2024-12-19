@@ -6,10 +6,12 @@ import canvas.config
 DEFAULT_SKIP_HEADERS = False
 DEFAULT_INCLUDE_EMPTY_ASSIGNMENTS = False
 DEFAULT_INCLUDE_EMPTY_USERS = False
+DEFAULT_INCLUDE_COMPUTED_SCORES = False
 
 def run_cli(include_empty_assignments = DEFAULT_INCLUDE_EMPTY_ASSIGNMENTS, include_empty_users = DEFAULT_INCLUDE_EMPTY_USERS,
+        include_computed_scores = DEFAULT_INCLUDE_COMPUTED_SCORES,
         skip_headers = DEFAULT_SKIP_HEADERS, students = [], **kwargs):
-    assignments, user_grades = canvas.api.gradebook.fetch.request(user_queries = students, **kwargs)
+    assignments, user_grades = canvas.api.gradebook.fetch.request(user_queries = students, include_computed_scores = include_computed_scores, **kwargs)
 
     if (len(assignments) == 0):
         print("No assignments found.", file = sys.stderr)
@@ -63,11 +65,15 @@ def _modify_parser(parser):
 
     parser.add_argument('--include-empty-assignments', dest = 'include_empty_assignments',
         action = 'store_true', default = DEFAULT_INCLUDE_EMPTY_ASSIGNMENTS,
-        help = 'Skip assignments with no submissions (default: %(default)s).')
+        help = 'Include assignments with no submissions (default: %(default)s).')
 
     parser.add_argument('--include-empty-users', dest = 'include_empty_users',
         action = 'store_true', default = DEFAULT_INCLUDE_EMPTY_USERS,
-        help = 'Skip users with no submissions (default: %(default)s).')
+        help = 'Include users with no submissions (default: %(default)s).')
+
+    parser.add_argument('--include-computed-scores', dest = 'include_computed_scores',
+        action = 'store_true', default = DEFAULT_INCLUDE_COMPUTED_SCORES,
+        help = 'Include scores computed Canvas (default: %(default)s).')
 
     parser.add_argument('--skip-headers', dest = 'skip_headers',
         action = 'store_true', default = DEFAULT_SKIP_HEADERS,

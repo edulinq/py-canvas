@@ -1,0 +1,8 @@
+{
+    "cli": "canvas.cli.gradebook.fetch",
+    "arguments": ["--include-computed-scores"]
+}
+---
+email	Assignment 1 (67890)	Quiz 1 (67891)	current_score (_computed_1_)	final_score (_computed_2_)	unposted_current_score (_computed_3_)	unposted_final_score (_computed_4_)
+aalvarez@ucsc.edu	1.0	1.0	85.45	32.75	85.45	32.75
+bburnquist@ucsc.edu	0.5	1.0	91.25	25.25	91.25	25.25

@@ -1,4 +1,5 @@
 import ast
+import re
 import sys
 
 import canvas.api.gradebook.upload
@@ -6,6 +7,18 @@ import canvas.config
 
 def run_cli(path = None, **kwargs):
     assignments, users, scores = _load_gradebook(path)
+
+    # Filter out assignments that look like computed scores.
+    remove_indexes = []
+    for i in range(len(assignments)):
+        if (re.search(r'\(_computed_\d+_\)$', assignments[i]) is not None):
+            remove_indexes.append(i)
+
+    for index in reversed(remove_indexes):
+        assignments.pop(index)
+
+        for user_scores in scores:
+            user_scores.pop(index)
 
     score_count = canvas.api.gradebook.upload.request(
             assignments = assignments, users = users, scores = scores,
