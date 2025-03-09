@@ -15,3 +15,7 @@ __pycache__/
 /*_test.*
 
 /.secrets
+
+venv/
+
+edq-canvas.json

@@ -130,6 +130,9 @@ def get_argument_parser(description = '', course = True, **kwargs):
         action = 'store', type = str, default = None,
         help = 'A Canvas authentication token.')
 
+    parser.add_argument('--json',action = 'store_true',
+        help = 'Output in JSON format instead of TSV')
+    
     if (course):
         parser.add_argument('--course', dest = 'course',
             action = 'store', type = int, default = None,

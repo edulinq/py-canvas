@@ -18,7 +18,8 @@ def run_cli(table = DEFAULT_TABLE, skip_headers = DEFAULT_SKIP_HEADERS, **kwargs
 
     return canvas.cli.common.cli_list(groups, OUTPUT_KEYS,
             table = table, skip_headers = skip_headers,
-            collective_name = 'groups', sort_key = 'name')
+            collective_name = 'groups', sort_key = 'name',
+            **kwargs)
 
 def main():
     config = canvas.config.get_config(exit_on_error = True, modify_parser = _modify_parser, course = True)
