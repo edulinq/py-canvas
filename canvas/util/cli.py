@@ -29,7 +29,7 @@ def list_dir(base_dir, command_prefix, default_parser):
 def auto_list(default_parser = None):
     """
     Will print the caller's prompt and call list_dir() on it,
-    but will figure out the package's prompt (doc string), base_dir, and command_prefix automatially.
+    but will figure out the package's prompt (doc string), base_dir, and command_prefix automatically.
     This will use the inspect library, so only use in places that use code normally.
     """
 

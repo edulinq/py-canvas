@@ -1,5 +1,5 @@
 """
-The `canvas.cli` package contains several packages for interacting with Canvas in differnt ways.
+The `canvas.cli` package contains several packages for interacting with Canvas in different ways.
 Each package can be invoked to list the tools (or subpackages) it contains.
 Each tool includes a help prompt that can be accessed with the `-h`/`--help` flag.
 """
