@@ -4,7 +4,7 @@ import canvas.api.user.list
 import canvas.cli.common
 import canvas.cli.user.common
 import canvas.config
-import logging
+
 DEFAULT_INCLUDE_ROLE = False
 DEFAULT_TABLE = False
 DEFAULT_SKIP_HEADERS = False
