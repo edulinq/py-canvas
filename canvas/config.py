@@ -132,7 +132,12 @@ def get_argument_parser(description = '', course = True, **kwargs):
 
     parser.add_argument('--json',action = 'store_true',
         help = 'Output in JSON format instead of TSV')
-    
+
+    parser.add_argument('--json-key-type', dest = 'json_key_type',
+        action = 'store', type = str, default = 'items_key',
+        choices = ['items_key', 'title', 'pretty_title'],
+        help = 'The type of key to use in JSON output (default: %(default)s).')
+
     if (course):
         parser.add_argument('--course', dest = 'course',
             action = 'store', type = int, default = None,
