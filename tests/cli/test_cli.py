@@ -158,28 +158,16 @@ def _test_output(test_case, module, expected_output, output_check, expected_exit
 
     content_equals(test_case, expected_exit_status, actual_exit_status)
 
-    if (is_json is True):
+    if (is_json):
         try:
-            expected_json = _sort_and_normalize_json(json.loads(expected_output))
-            actual_json = _sort_and_normalize_json(json.loads(actual_output))
+            expected_json = json.loads(expected_output)
+            actual_json = json.loads(actual_output)
 
             content_equals(test_case, expected_json, actual_json)
-
         except json.JSONDecodeError as ex:
             test_case.fail("Failed to parse JSON output: '%s'" % (str(ex)))
     else:
         output_check(test_case, expected_output, actual_output)
-
-def _sort_and_normalize_json(json_data):
-    if (isinstance(json_data, list)):
-        return sorted(
-            [_sort_and_normalize_json(item) for item in json_data],
-            key = lambda x: x.get('id', '')
-        )
-    elif (isinstance(json_data, dict)):
-        return {k: str(v).strip() for k, v in sorted(json_data.items())}
-
-    return str(json_data).strip()
 
 def content_equals(test_case, expected, actual, **kwargs):
     test_case.assertEqual(expected, actual)

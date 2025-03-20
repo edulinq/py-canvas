@@ -39,10 +39,6 @@ def _modify_parser(parser):
         action = 'store_true', default = DEFAULT_INCLUDE_ROLE,
         help = 'Include user\'s role in the course (default: %(default)s).')
 
-    parser.add_argument('-t', '--table', dest = 'table',
-        action = 'store_true', default = DEFAULT_TABLE,
-        help = 'Output the results as a TSV table with a header (default: %(default)s).')
-
     parser.add_argument('--skip-headers', dest = 'skip_headers',
         action = 'store_true', default = DEFAULT_SKIP_HEADERS,
         help = 'Skip headers when outputting as a table (default: %(default)s).')
@@ -50,6 +46,15 @@ def _modify_parser(parser):
     parser.add_argument('user',
         action = 'store', type = str,
         help = 'The query for the user to fetch information about.')
+
+    group = parser.add_mutually_exclusive_group()
+
+    group.add_argument('-t', '--table', dest = 'table',
+        action = 'store_true', default = DEFAULT_TABLE,
+        help = 'Output the results as a TSV table with a header (default: %(default)s).')
+
+    group.add_argument('--json',action = 'store_true',
+        help = 'Output in JSON format instead of TSV')
 
     return parser
 

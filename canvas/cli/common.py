@@ -1,5 +1,5 @@
-import sys
 import json
+import sys
 
 # keys: [(items key, title, pretty title), ...]
 def cli_list(items, keys, table = False, skip_headers = False,
@@ -9,40 +9,15 @@ def cli_list(items, keys, table = False, skip_headers = False,
         print("No %s found." % (collective_name), file = sys.stderr)
         return 0
 
-    if kwargs.get('json', False):
-        _output_json(items, keys, kwargs.get('json_key_type', 'items_key'))
-    else:
-        _output_tsv(items, keys, table, skip_headers, sort_key)
-
-    return 0
-
-def _output_json(items, keys, json_key_type = 'items_key'):
-    json_data = []
-    for item in items:
-        values = {}
-        for items_key, title, pretty_title in keys:
-            value = item.get(items_key, '')
-            if value is None:
-                value = ''
-
-            if (json_key_type == 'title'):
-                key = title
-            elif (json_key_type == 'pretty_title'):
-                key = pretty_title
-            else:
-                key = items_key
-
-            values[key] = str(value).strip()
-
-        json_data.append(values)
-    print(json.dumps(json_data, indent = 2))
-
-def _output_tsv(items, keys, table = False, skip_headers = False, sort_key = 'id'):
-    items = list(sorted(items, key = lambda item: item.get(sort_key, '')))
+    is_json = kwargs.get('json', False)
+    if (is_json):
+        print(json.dumps(items, indent = 4, sort_keys = True))
+        return 0
 
     if (table and (not skip_headers)):
-            print("\t".join([key_set[1] for key_set in keys]))
+        print("\t".join([key_set[1] for key_set in keys]))
 
+    items = list(sorted(items, key = lambda item: item.get(sort_key, '')))
     for i in range(len(items)):
         item = items[i]
 
@@ -63,6 +38,7 @@ def _output_tsv(items, keys, table = False, skip_headers = False, sort_key = 'id
             for key_set in keys:
                 print("%s: %s" % (key_set[2], values[key_set[0]]))
 
+    return 0
 
 def _clean_cell(text):
     """

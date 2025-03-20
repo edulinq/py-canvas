@@ -29,13 +29,18 @@ def _modify_parser(parser):
         + ' Canvas also calls groupings ("Group Sets" or "Group Categories").'
         + ' This does not list group(ing) membership.')
 
-    parser.add_argument('-t', '--table', dest = 'table',
-        action = 'store_true', default = DEFAULT_TABLE,
-        help = 'Output the results as a TSV table with a header (default: %(default)s).')
-
     parser.add_argument('--skip-headers', dest = 'skip_headers',
         action = 'store_true', default = DEFAULT_SKIP_HEADERS,
         help = 'Skip headers when outputting as a table (default: %(default)s).')
+
+    group = parser.add_mutually_exclusive_group()
+
+    group.add_argument('-t', '--table', dest = 'table',
+        action = 'store_true', default = DEFAULT_TABLE,
+        help = 'Output the results as a TSV table with a header (default: %(default)s).')
+
+    group.add_argument('--json',action = 'store_true',
+        help = 'Output in JSON format instead of TSV')
 
     return parser
 
