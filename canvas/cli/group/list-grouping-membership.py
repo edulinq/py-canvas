@@ -28,14 +28,6 @@ def main():
 def _modify_parser(parser):
     parser.description = 'List the membership of all groups within a grouping.'
 
-    parser.add_argument('--skip-headers', dest = 'skip_headers',
-        action = 'store_true', default = DEFAULT_SKIP_HEADERS,
-        help = 'Skip headers when outputting as a table (default: %(default)s).')
-
-    parser.add_argument('grouping',
-        action = 'store', type = str,
-        help = 'The query for the grouping (aka "group set" or "group category") to list.')
-
     group = parser.add_mutually_exclusive_group()
 
     group.add_argument('-t', '--table', dest = 'table',
@@ -44,6 +36,15 @@ def _modify_parser(parser):
 
     group.add_argument('--json',action = 'store_true',
         help = 'Output in JSON format instead of TSV')
+
+    parser.add_argument('--skip-headers', dest = 'skip_headers',
+        action = 'store_true', default = DEFAULT_SKIP_HEADERS,
+        help = 'Skip headers when outputting as a table (default: %(default)s).')
+
+    parser.add_argument('grouping',
+        action = 'store', type = str,
+        help = 'The query for the grouping (aka "group set" or "group category") to list.')
+
 
     return parser
 

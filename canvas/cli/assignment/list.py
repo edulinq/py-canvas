@@ -29,14 +29,6 @@ def main():
 def _modify_parser(parser):
     parser.description = 'List assignments in a course.'
 
-    parser.add_argument('--skip-headers', dest = 'skip_headers',
-        action = 'store_true', default = DEFAULT_SKIP_HEADERS,
-        help = 'Skip headers when outputting as a table (default: %(default)s).')
-
-    parser.add_argument('--skip-description', dest = 'skip_description',
-        action = 'store_true', default = DEFAULT_SKIP_DESCRIPTION,
-        help = 'Skip outputting the assignment description (default: %(default)s).')
-
     group = parser.add_mutually_exclusive_group()
 
     group.add_argument('-t', '--table', dest = 'table',
@@ -45,6 +37,15 @@ def _modify_parser(parser):
 
     group.add_argument('--json',action = 'store_true',
         help = 'Output in JSON format instead of TSV')
+
+    parser.add_argument('--skip-headers', dest = 'skip_headers',
+        action = 'store_true', default = DEFAULT_SKIP_HEADERS,
+        help = 'Skip headers when outputting as a table (default: %(default)s).')
+
+    parser.add_argument('--skip-description', dest = 'skip_description',
+        action = 'store_true', default = DEFAULT_SKIP_DESCRIPTION,
+        help = 'Skip outputting the assignment description (default: %(default)s).')
+
 
     return parser
 
