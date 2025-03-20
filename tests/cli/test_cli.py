@@ -127,7 +127,7 @@ def _get_test_method(test_name, path):
         old_args = sys.argv
         sys.argv = [module.__file__] + cli_arguments
 
-        is_json = "--json" in cli_arguments or []
+        is_json = "--json" in cli_arguments
 
         _test_output(self, module, expected_output, output_check, expected_exit_status, is_error, is_json)
 

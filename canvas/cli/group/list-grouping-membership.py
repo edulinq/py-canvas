@@ -45,7 +45,6 @@ def _modify_parser(parser):
         action = 'store', type = str,
         help = 'The query for the grouping (aka "group set" or "group category") to list.')
 
-
     return parser
 
 if (__name__ == '__main__'):
