@@ -46,7 +46,6 @@ def _modify_parser(parser):
         action = 'store_true', default = DEFAULT_SKIP_DESCRIPTION,
         help = 'Skip outputting the assignment description (default: %(default)s).')
 
-
     return parser
 
 if (__name__ == '__main__'):
