@@ -41,7 +41,7 @@ def _modify_parser(parser):
         action = 'store_true', default = DEFAULT_TABLE,
         help = 'Output the results as a TSV table with a header (default: %(default)s).')
 
-    group.add_argument('--json',action = 'store_true',
+    group.add_argument('--json', action = 'store_true',
         help = 'Output in JSON format instead of TSV')
 
     parser.add_argument('--include-role', dest = 'include_role',
