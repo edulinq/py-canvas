@@ -8,10 +8,11 @@ import canvas.config
 DEFAULT_INCLUDE_ROLE = False
 DEFAULT_TABLE = False
 DEFAULT_SKIP_HEADERS = False
+DEFAULT_JSON = False
 
 def run_cli(include_role = DEFAULT_INCLUDE_ROLE,
         table = DEFAULT_TABLE, skip_headers = DEFAULT_SKIP_HEADERS,
-        **kwargs):
+        output_json = DEFAULT_JSON, **kwargs):
     users = canvas.api.user.list.request(include_role = include_role,
             **kwargs)
 
@@ -22,7 +23,7 @@ def run_cli(include_role = DEFAULT_INCLUDE_ROLE,
     return canvas.cli.common.cli_list(users, keys,
             table = table, skip_headers = skip_headers,
             collective_name = 'users', sort_key = 'email',
-            **kwargs)
+            output_json = output_json)
 
 def main():
     config = canvas.config.get_config(exit_on_error = True, modify_parser = _modify_parser, course = True)
@@ -31,14 +32,7 @@ def main():
 def _modify_parser(parser):
     parser.description = 'List users in a course.'
 
-    group = parser.add_mutually_exclusive_group()
-
-    group.add_argument('-t', '--table', dest = 'table',
-        action = 'store_true', default = DEFAULT_TABLE,
-        help = 'Output the results as a TSV table with a header (default: %(default)s).')
-
-    group.add_argument('--json', action = 'store_true',
-        help = 'Output in JSON format instead of TSV')
+    canvas.cli.common.add_output_args(parser)
 
     parser.add_argument('--include-role', dest = 'include_role',
         action = 'store_true', default = DEFAULT_INCLUDE_ROLE,

@@ -127,47 +127,33 @@ def _get_test_method(test_name, path):
         old_args = sys.argv
         sys.argv = [module.__file__] + cli_arguments
 
-        is_json = "--json" in cli_arguments
+        try:
+            with contextlib.redirect_stdout(io.StringIO()) as output:
+                actual_exit_status = module.main()
+            actual_output = output.getvalue()
 
-        _test_output(self, module, expected_output, output_check, expected_exit_status, is_error, is_json)
+            if (is_error):
+                self.fail("No error was not raised when one was expected ('%s')." % (str(expected_output)))
+        except BaseException as ex:
+            if (not is_error):
+                raise ex
 
-        sys.argv = old_args
+            if (isinstance(ex, SystemExit)):
+                if (ex.__context__ is None):
+                    self.fail("Unexpected exit without context.")
+
+                ex = ex.__context__
+
+            self.assertEqual(expected_output, str(ex))
+            return
+        finally:
+            sys.argv = old_args
+
+        self.assertEqual(expected_exit_status, actual_exit_status)
+
+        output_check(self, expected_output, actual_output)
 
     return __method
-
-def _test_output(test_case, module, expected_output, output_check, expected_exit_status, is_error, is_json = False):
-    try:
-        with contextlib.redirect_stdout(io.StringIO()) as output:
-            actual_exit_status = module.main()
-        actual_output = output.getvalue()
-
-        if (is_error):
-            test_case.fail("No error was raised when one was expected ('%s')" % (expected_output))
-    except BaseException as ex:
-        if (not is_error):
-            raise ex
-
-        if (isinstance(ex, SystemExit)):
-            if (ex.__context__ is None):
-                test_case.fail("Unexpected exit without context.")
-
-            ex = ex.__context__
-
-        content_equals(test_case, expected_output, str(ex))
-        return
-
-    content_equals(test_case, expected_exit_status, actual_exit_status)
-
-    if (is_json):
-        try:
-            expected_json = json.loads(expected_output)
-            actual_json = json.loads(actual_output)
-
-            content_equals(test_case, expected_json, actual_json)
-        except json.JSONDecodeError as ex:
-            test_case.fail("Failed to parse JSON output: '%s'" % (str(ex)))
-    else:
-        output_check(test_case, expected_output, actual_output)
 
 def content_equals(test_case, expected, actual, **kwargs):
     test_case.assertEqual(expected, actual)
