@@ -18,11 +18,14 @@ def cli_list(items, keys, table = DEFAULT_TABLE, skip_headers = False,
         values = {}
 
         for items_key, _, _ in keys:
-            value = item.get(items_key)
+            value = item[items_key]
             if (value is None):
                 value = ''
 
-            values[items_key] = str(value).strip() if not output_json else value
+            if (output_json):
+                values[items_key] = value
+            else:
+                values[items_key] = str(value).strip()
 
         processed_items.append(values)
 
