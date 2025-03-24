@@ -5,13 +5,11 @@ import canvas.cli.assignment.common
 import canvas.cli.common
 import canvas.config
 
-DEFAULT_JSON = False
-DEFAULT_TABLE = False
 DEFAULT_SKIP_HEADERS = False
 DEFAULT_SKIP_DESCRIPTION = False
 
-def run_cli(assignment = None, table = DEFAULT_TABLE, skip_headers = DEFAULT_SKIP_HEADERS,
-        skip_description = DEFAULT_SKIP_DESCRIPTION, output_json = DEFAULT_JSON, **kwargs):
+def run_cli(assignment = None, table = canvas.cli.common.DEFAULT_TABLE, skip_headers = DEFAULT_SKIP_HEADERS,
+        skip_description = DEFAULT_SKIP_DESCRIPTION, output_json = canvas.cli.common.DEFAULT_JSON, **kwargs):
     raw_assignments = []
     if (assignment is not None):
         raw_assignments.append(assignment)

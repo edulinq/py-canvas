@@ -4,8 +4,6 @@ import canvas.api.group.listgroups
 import canvas.cli.common
 import canvas.config
 
-DEFAULT_JSON = False
-DEFAULT_TABLE = False
 DEFAULT_SKIP_HEADERS = False
 
 OUTPUT_KEYS = [
@@ -13,8 +11,8 @@ OUTPUT_KEYS = [
     ('id', 'canvas_id', 'Canvas ID'),
 ]
 
-def run_cli(table = DEFAULT_TABLE, skip_headers = DEFAULT_SKIP_HEADERS,
-        output_json = DEFAULT_JSON, **kwargs):
+def run_cli(table = canvas.cli.common.DEFAULT_TABLE, skip_headers = DEFAULT_SKIP_HEADERS,
+        output_json = canvas.cli.common.DEFAULT_JSON, **kwargs):
     groups = canvas.api.group.listgroups.request(**kwargs)
 
     return canvas.cli.common.cli_list(groups, OUTPUT_KEYS,

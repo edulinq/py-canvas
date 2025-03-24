@@ -5,9 +5,9 @@
 ---
 [
     {
+        "canvas_id": "10001",
         "email": "aalvarez@ucsc.edu",
-        "id": "10001",
         "name": "Alice Alvarez",
-        "sis_user_id": "1000001"
+        "student_id": "1000001"
     }
 ]

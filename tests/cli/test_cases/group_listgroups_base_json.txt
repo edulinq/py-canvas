@@ -5,11 +5,11 @@
 ---
 [
     {
-        "id": "300010",
+        "canvas_id": "300010",
         "name": "Group 1 - No Leader 1"
     },
     {
-        "id": "300011",
+        "canvas_id": "300011",
         "name": "Group 1 - No Leader 2"
     }
 ]

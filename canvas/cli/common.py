@@ -11,39 +11,41 @@ def cli_list(items, keys, table = DEFAULT_TABLE, skip_headers = False,
         print("No %s found." % (collective_name), file = sys.stderr)
         return 0
 
-    items = list(sorted(items, key=lambda item: item.get(sort_key, '')))
+    items = list(sorted(items, key = lambda item: item.get(sort_key, '')))
 
     processed_items = []
     for item in items:
         values = {}
 
-        for items_key, _, _ in keys:
+        for items_key, items_key_formatted, _ in keys:
             value = item[items_key]
             if (value is None):
                 value = ''
 
             if (output_json):
-                values[items_key] = value
+                values[items_key_formatted] = value
             else:
-                values[items_key] = str(value).strip()
+                values[items_key_formatted] = str(value).strip()
 
         processed_items.append(values)
 
     if (output_json):
         print(json.dumps(processed_items, indent = 4, sort_keys = True))
+        return 0
+
+    if (table and (not skip_headers)):
+        print("\t".join([key_set[1] for key_set in keys]))
+
+    if (table):
+        for _, values in enumerate(processed_items):
+            print("\t".join(map(_clean_cell, [values[key_set[1]] for key_set in keys])))
     else:
-        if (table and (not skip_headers)):
-            print("\t".join([key_set[1] for key_set in keys]))
-
         for i, values in enumerate(processed_items):
-            if (table):
-                print("\t".join(map(_clean_cell, [values[key_set[0]] for key_set in keys])))
-            else:
-                if (i != 0):
-                    print()
+            if (i != 0):
+                print()
 
-                for key_set in keys:
-                    print("%s: %s" % (key_set[2], values[key_set[0]]))
+            for key_set in keys:
+                print("%s: %s" % (key_set[2], values[key_set[1]]))
 
     return 0
 

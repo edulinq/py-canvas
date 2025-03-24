@@ -6,13 +6,11 @@ import canvas.cli.user.common
 import canvas.config
 
 DEFAULT_INCLUDE_ROLE = False
-DEFAULT_TABLE = False
 DEFAULT_SKIP_HEADERS = False
-DEFAULT_JSON = False
 
 def run_cli(include_role = DEFAULT_INCLUDE_ROLE,
-        table = DEFAULT_TABLE, skip_headers = DEFAULT_SKIP_HEADERS,
-        output_json = DEFAULT_JSON, **kwargs):
+        table = canvas.cli.common.DEFAULT_TABLE, skip_headers = DEFAULT_SKIP_HEADERS,
+        output_json = canvas.cli.common.DEFAULT_JSON, **kwargs):
     users = canvas.api.user.list.request(include_role = include_role,
             **kwargs)
 
