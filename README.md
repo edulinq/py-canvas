@@ -137,6 +137,11 @@ Most commands that list results can also output results into a tab-separated tab
 using the `-t` / `--table` option.
 To skip the header row, you can use the `--skip-headers` option.
 
+### JSON Output
+
+Most commands that list results can output them as JSON to stdout using the `--json` option,
+ideal for programmatic use.
+
 ## CLI Tools
 
 All CLI tools can be invoked with `-h` / `--help` to see the full usage and all options.

@@ -1,0 +1,6 @@
+{
+    "cli": "canvas.cli.group.list-group-members",
+    "arguments": ["300020", "--json"]
+}
+---
+Email
