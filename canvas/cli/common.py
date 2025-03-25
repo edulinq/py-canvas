@@ -6,7 +6,8 @@ DEFAULT_TABLE = False
 DEFAULT_SKIP_HEADERS = False
 
 # keys: [(items key, title, pretty title), ...]
-def cli_list(items, keys, collective_name = 'items', sort_key = 'id', output_json = DEFAULT_JSON,table = DEFAULT_TABLE, skip_headers = DEFAULT_SKIP_HEADERS,**kwargs):
+def cli_list(items, keys, collective_name = 'items', sort_key = 'id', output_json = DEFAULT_JSON,
+        table = DEFAULT_TABLE, skip_headers = DEFAULT_SKIP_HEADERS, **kwargs):
     items = list(sorted(items, key = lambda item: item.get(sort_key, '')))
 
     if (output_json):
@@ -35,7 +36,7 @@ def _cli_list_json(items, keys):
 def _cli_list_table(items, keys, skip_headers, collective_name):
     if (len(items) == 0):
         print("No %s found." % (collective_name), file = sys.stderr)
-        return 0
+        return
 
     if (not skip_headers):
         print("\t".join([key_set[1] for key_set in keys]))

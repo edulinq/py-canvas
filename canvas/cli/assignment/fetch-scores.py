@@ -1,7 +1,6 @@
 import sys
 
 import canvas.api.assignment.fetchscores
-import canvas.cli
 import canvas.cli.common
 import canvas.config
 
