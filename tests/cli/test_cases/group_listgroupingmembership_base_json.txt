@@ -3,10 +3,15 @@
     "arguments": ["30001", "--json"]
 }
 ---
-Group Name: Group 1 - No Leader 1
-Canvas Group ID: 300010
-Email: aalvarez@ucsc.edu
-
-Group Name: Group 1 - No Leader 2
-Canvas Group ID: 300011
-Email: bburnquist@ucsc.edu
+[
+    {
+        "email": "aalvarez@ucsc.edu",
+        "group_id": "300010",
+        "group_name": "Group 1 - No Leader 1"
+    },
+    {
+        "email": "bburnquist@ucsc.edu",
+        "group_id": "300011",
+        "group_name": "Group 1 - No Leader 2"
+    }
+]

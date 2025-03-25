@@ -6,8 +6,7 @@ DEFAULT_TABLE = False
 DEFAULT_SKIP_HEADERS = False
 
 # keys: [(items key, title, pretty title), ...]
-def cli_list(items, keys, table = DEFAULT_TABLE, skip_headers = DEFAULT_SKIP_HEADERS,
-        collective_name = 'items', sort_key = 'id', output_json = DEFAULT_JSON):
+def cli_list(items, keys, collective_name = 'items', sort_key = 'id', output_json = DEFAULT_JSON,table = DEFAULT_TABLE, skip_headers = DEFAULT_SKIP_HEADERS,**kwargs):
     items = list(sorted(items, key = lambda item: item.get(sort_key, '')))
 
     if (output_json):
@@ -93,6 +92,6 @@ def add_output_args(parser):
         action = 'store_true', default = DEFAULT_JSON,
         help = 'Output in JSON format instead of TSV')
 
-    group.add_argument('--skip-headers', dest = 'skip_headers',
+    parser.add_argument('--skip-headers', dest = 'skip_headers',
         action = 'store_true', default = DEFAULT_SKIP_HEADERS,
         help = 'Skip headers when outputting as a table (default: %(default)s).')
