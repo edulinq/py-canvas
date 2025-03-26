@@ -139,8 +139,7 @@ To skip the header row, you can use the `--skip-headers` option.
 
 ### JSON Output
 
-Most commands that list results can output them as JSON to stdout using the `--json` option,
-ideal for programmatic use.
+Most commands that list results can output them as JSON to stdout using the `--json` option.
 
 ## CLI Tools
 

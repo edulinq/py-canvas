@@ -7,15 +7,15 @@ DEFAULT_SKIP_HEADERS = False
 
 # keys: [(items key, title, pretty title), ...]
 def cli_list(items, keys, collective_name = 'items', sort_key = 'id', output_json = DEFAULT_JSON,
-        table = DEFAULT_TABLE, skip_headers = DEFAULT_SKIP_HEADERS, **kwargs):
+        output_table = DEFAULT_TABLE, skip_headers = DEFAULT_SKIP_HEADERS, **kwargs):
     items = list(sorted(items, key = lambda item: item.get(sort_key, '')))
 
     if (output_json):
-        _cli_list_json(items = items, keys = keys)
-    elif (table):
-        _cli_list_table(items = items, keys = keys, skip_headers = skip_headers, collective_name = collective_name)
+        _cli_list_json(items, keys)
+    elif (output_table):
+        _cli_list_table(items, keys, skip_headers, collective_name)
     else:
-        _cli_list_plain(items = items, keys = keys, collective_name = collective_name)
+        _cli_list_plain(items, keys, collective_name)
 
     return 0
 
@@ -85,7 +85,7 @@ def _clean_cell(text):
 def add_output_args(parser):
     group = parser.add_mutually_exclusive_group()
 
-    group.add_argument('-t', '--table', dest = 'table',
+    group.add_argument('-t', '--table', dest = 'output_table',
         action = 'store_true', default = DEFAULT_TABLE,
         help = 'Output the results as a TSV table with a header (default: %(default)s).')
 
