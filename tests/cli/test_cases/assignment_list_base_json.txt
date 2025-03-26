@@ -1,0 +1,31 @@
+{
+    "cli": "canvas.cli.assignment.list",
+    "arguments": ["--json"]
+}
+---
+[
+    {
+        "canvas_id": "67890",
+        "description": "The first assignment.",
+        "due_at": "1970-01-01T01:01:01Z",
+        "name": "Assignment 1",
+        "points_possible": 1.0,
+        "published": true
+    },
+    {
+        "canvas_id": "67892",
+        "description": "The third assignment (has submissions).",
+        "due_at": "1970-01-01T01:01:01Z",
+        "name": "Assignment 3",
+        "points_possible": 1.0,
+        "published": true
+    },
+    {
+        "canvas_id": "67891",
+        "description": null,
+        "due_at": null,
+        "name": "Quiz 1",
+        "points_possible": 1.0,
+        "published": false
+    }
+]

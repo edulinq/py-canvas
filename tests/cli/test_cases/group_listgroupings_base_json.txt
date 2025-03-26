@@ -1,0 +1,15 @@
+{
+    "cli": "canvas.cli.group.list-groupings",
+    "arguments": ["--json"]
+}
+---
+[
+    {
+        "canvas_id": 30001,
+        "name": "Group 1 - No Leader"
+    },
+    {
+        "canvas_id": 30002,
+        "name": "Group 2 - Leader"
+    }
+]

@@ -1,11 +1,10 @@
 import sys
 
 import canvas.api.assignment.fetchscores
+import canvas.cli.common
 import canvas.config
 
-DEFAULT_SKIP_HEADERS = False
-
-def run_cli(skip_headers = DEFAULT_SKIP_HEADERS, **kwargs):
+def run_cli(skip_headers = canvas.cli.common.DEFAULT_SKIP_HEADERS, **kwargs):
     submissions = canvas.api.assignment.fetchscores.request(**kwargs)
 
     if (len(submissions) == 0):
@@ -34,7 +33,7 @@ def _modify_parser(parser):
     parser.description = 'List scores for an assignment.'
 
     parser.add_argument('--skip-headers', dest = 'skip_headers',
-        action = 'store_true', default = DEFAULT_SKIP_HEADERS,
+        action = 'store_true', default = canvas.cli.common.DEFAULT_SKIP_HEADERS,
         help = 'Skip headers (default: %(default)s).')
 
     parser.add_argument('assignment',

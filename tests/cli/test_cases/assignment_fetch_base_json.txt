@@ -1,0 +1,15 @@
+{
+    "cli": "canvas.cli.assignment.fetch",
+    "arguments": ["67890", "--json"]
+}
+---
+[
+    {
+        "canvas_id": "67890",
+        "description": "The first assignment.",
+        "due_at": "1970-01-01T01:01:01Z",
+        "name": "Assignment 1",
+        "points_possible": 1.0,
+        "published": true
+    }
+]

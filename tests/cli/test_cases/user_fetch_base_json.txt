@@ -1,0 +1,13 @@
+{
+    "cli": "canvas.cli.user.fetch",
+    "arguments": ["10001", "--json"]
+}
+---
+[
+    {
+        "canvas_id": "10001",
+        "email": "aalvarez@ucsc.edu",
+        "name": "Alice Alvarez",
+        "student_id": "1000001"
+    }
+]
