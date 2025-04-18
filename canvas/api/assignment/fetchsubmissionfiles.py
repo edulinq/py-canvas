@@ -20,6 +20,7 @@ SUBMISSION_TYPES = [
 ]
 
 TEXT_ENTRY_FILENAME = 'contents.html'
+MIN_WORKERS = 4
 
 def request(server = None, token = None, course = None, assignment = None, **kwargs):
     submission_infos = canvas.api.assignment.fetchscores.request(server = server, token = token, course = course,
@@ -106,7 +107,7 @@ def _download_files(temp_dir, file_targets):
         return 0
 
     count = 0
-    max_workers = min(4 , num_files)
+    max_workers = min(MIN_WORKERS , num_files)
     tasks = []
 
     for email, targets in file_targets.items():
