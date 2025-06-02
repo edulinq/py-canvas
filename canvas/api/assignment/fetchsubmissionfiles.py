@@ -1,3 +1,4 @@
+import concurrent.futures
 import logging
 import os
 
@@ -19,6 +20,7 @@ SUBMISSION_TYPES = [
 ]
 
 TEXT_ENTRY_FILENAME = 'contents.html'
+MIN_WORKERS = 4
 
 def request(server = None, token = None, course = None, assignment = None, **kwargs):
     submission_infos = canvas.api.assignment.fetchscores.request(server = server, token = token, course = course,
@@ -100,25 +102,41 @@ def _write_files(temp_dir, file_contents):
     return len(file_contents)
 
 def _download_files(temp_dir, file_targets):
-    count = 0
+    num_files = sum([len(targets) for targets in file_targets.values()])
+    if (num_files == 0):
+        return 0
 
-    for (email, targets) in file_targets.items():
+    count = 0
+    max_workers = min(MIN_WORKERS , num_files)
+    tasks = []
+
+    for email, targets in file_targets.items():
         user_dir = os.path.join(temp_dir, email)
         os.makedirs(user_dir, exist_ok = True)
 
-        for (filename, url) in targets:
-            path = os.path.join(user_dir, filename)
+        for filename, url in targets:
+            tasks.append((email, filename, url, user_dir))
 
-            try:
-                logging.debug("Downloading file for student '%s': '%s'." % (email, filename))
-                response = requests.get(url)
-                response.raise_for_status()
-
-                with open(path, 'wb') as file:
-                    file.write(response.content)
-
-                count += 1
-            except Exception as ex:
-                logging.error("Failed to write downloaded file ('%s') for student '%s'." % (filename, email), exc_info = ex)
+    try:
+        with concurrent.futures.ThreadPoolExecutor(max_workers = max_workers) as executor:
+            results = executor.map(lambda t: download_file(t[0], t[1], t[2], t[3]), tasks)
+            count = sum(results)
+    except Exception as ex:
+        logging.error("Error while downloading files.", exc_info = ex)
 
     return count
+
+def download_file(email, filename, url, user_dir):
+    path = os.path.join(user_dir, filename)
+
+    try:
+        logging.debug("Downloading file for student '%s': '%s'." % (email, filename))
+        response = requests.get(url, timeout = 10)
+        response.raise_for_status()
+
+        with open(path, 'wb') as file:
+            file.write(response.content)
+        return 1
+    except requests.exceptions.HTTPError as ex:
+        logging.error("HTTP error while downloading '%s' for student '%s': %s" % (filename, email, str(ex)))
+        return 0
